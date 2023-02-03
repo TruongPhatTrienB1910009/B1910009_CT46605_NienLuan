@@ -1,11 +1,19 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const app = require('./app')
+const config = require('./app/config')
+const mongoose = require('mongoose')
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+try {
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
+    // connect to the database
+    mongoose.connect(config.db.uri);
+    console.log('Connect to database successfully');
+
+    // start server
+    const PORT = config.app.port;
+    app.listen(PORT, () => {
+        console.log(`Server listening on port ${PORT}`);
+    });
+} catch (error) {
+    console.log("Cannot connect to the database!", error);
+    process.exit();
+}
