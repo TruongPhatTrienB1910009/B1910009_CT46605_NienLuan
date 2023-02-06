@@ -8,5 +8,14 @@ const router = express.Router();
 router.route("/register")
     .post(userController.register)
 
+router.route("/signin")
+    .post(userController.signIn)
+
+router.route("/logout")
+    .post(userController.logOut)
+
+router.route("/:id")
+    .get(userController.getAllTablesUser)
+
 
 module.exports = router;

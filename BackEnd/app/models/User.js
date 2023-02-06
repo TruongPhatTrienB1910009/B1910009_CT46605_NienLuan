@@ -17,10 +17,12 @@ const userSchema = new Schema({
         type: String,
         default: 'guest'
     },
-    tables: {
-        type: Schema.Types.ObjectId,
-        ref: 'Table'
-    }
+    tables: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Table'
+        }
+    ]
 })
 
 const User = mongoose.model('User', userSchema);

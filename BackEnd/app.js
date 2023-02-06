@@ -2,8 +2,11 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 const mongoose = require('mongoose')
+const { requireAuth, checkUser } = require('./app/middlewares/authMiddleware')
 
 const userRoute = require('./app/routes/user.route')
+const tableRoute = require('./app/routes/table.route')
+
 
 
 // middleware
@@ -13,12 +16,13 @@ app.use(express.json());
 app.use(cors());
 
 // routes
-
+// app.get('*', checkUser)
 app.get("/", (req, res) => {
     res.json({ message: "Welcome to my application" })
 })
 
 app.use("/user", userRoute);
+app.use("/table", requireAuth, tableRoute);
 
 // handle 404 response
 
