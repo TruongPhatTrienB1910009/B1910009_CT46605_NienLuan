@@ -10,19 +10,19 @@ const tableRoute = require('./app/routes/table.route')
 
 
 // middleware
+app.use(cors());
+app.use(express.json());
 mongoose.set('strictQuery', false);
 const ApiError = require('./app/api-error')
-app.use(express.json());
-app.use(cors());
+
 
 // routes
-// app.get('*', checkUser)
 app.get("/", (req, res) => {
     res.json({ message: "Welcome to my application" })
 })
 
-app.use("/user", userRoute);
-app.use("/table", requireAuth, tableRoute);
+app.use("/api/myapp/user", userRoute);
+app.use("/api/myapp/table", requireAuth, tableRoute);
 
 // handle 404 response
 

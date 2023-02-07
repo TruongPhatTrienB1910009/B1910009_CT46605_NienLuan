@@ -29,15 +29,19 @@ exports.register = async (req, res, next) => {
 }
 
 exports.signIn = async (req, res, next) => {
-    const foundUser = await User.findOne({ email: req.body.email });
-    if (!foundUser) {
-        return res.status(403).json({ sucess: false });
-    } else {
-        if (foundUser.password === req.body.password) {
-            const token = encodedToken(foundUser._id);
-            res.header('jwt', token);
-            return res.status(200).json({ token: token });
+    try {
+        const foundUser = await User.findOne({ email: req.body.email });
+        if (!foundUser) {
+            return res.status(403).send({ message: 'User not found' });
+        } else {
+            if (foundUser.password === req.body.password) {
+                const token = encodedToken(foundUser._id);
+                res.header('jwt', token);
+                return res.send(token);
+            }
         }
+    } catch (e) {
+        console.error(e);
     }
 
 }
