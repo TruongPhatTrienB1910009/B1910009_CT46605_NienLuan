@@ -8,6 +8,10 @@ class userService {
     async signIn(data) {
         return (await this.api.post("/signin", data)).data;
     }
+
+    async register(data) {
+        return (await this.api.post("/register", data)).data;
+    }
 }
 
 export default new userService();

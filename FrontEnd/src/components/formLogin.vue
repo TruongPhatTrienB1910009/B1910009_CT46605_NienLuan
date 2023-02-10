@@ -11,12 +11,16 @@
                     <i class="fa-solid fa-lock"></i>
                     <input type="password" name="password" id="password" placeholder="Password" v-model="user.password">
                 </div>
-                <!-- <div class="inp">
+                <div class="inp" v-if="url">
                     <i class="fa-solid fa-lock"></i>
-                    <input type="password" name="password" id="password" placeholder="Password">
-                </div> -->
-                <button class="btn-css" type="submit">Đăng Nhập</button>
-                <span class="spn-regs">Chưa có tài khoản?
+                    <input type="password" name="confirm" id="confirm" placeholder="Confirm" v-model="user.confirm">
+                </div>
+                <button v-if="url" class="btn-css" type="submit">Đăng Ký</button>
+                <button v-else class="btn-css" type="submit">Đăng Nhập</button>
+                <span v-if="url" class="spn-regs">Đã có tài khoản?
+                    <router-link :to="{ name: 'Login' }">Đăng Nhập</router-link>
+                </span>
+                <span v-else class="spn-regs">Chưa có tài khoản?
                     <router-link :to="{ name: 'Register' }">Đăng Ký</router-link>
                 </span>
             </form>
@@ -29,20 +33,25 @@
 </template>
 
 <script>
-import { reactive, defineEmits } from 'vue';
+import { reactive } from 'vue';
+import { useRouter } from 'vue-router';
 export default {
     emits: ['submit:user'],
+    props: ['url'],
     setup(props, ctx) {
         const user = reactive({
             email: '',
-            password: ''
+            password: '',
+            confirm: '',
         })
+
+        const url = props.url;
 
         function getUser() {
             ctx.emit('submit:user', user);
         }
 
-        return { user, getUser }
+        return { user, getUser, url }
     }
 }
 </script>

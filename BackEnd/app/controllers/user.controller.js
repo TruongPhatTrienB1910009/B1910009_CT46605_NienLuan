@@ -14,18 +14,23 @@ const encodedToken = (userId) => {
 
 exports.register = async (req, res, next) => {
 
+    console.log(req.body);
     const foundUser = await User.findOne({ email: req.body.email });
 
     if (foundUser) {
-        return res.status(403).json({ sucess: false });
+        return res.status(403).json({ message: "Email này đã được đăng ký." });
     }
 
-    const user = new User(req.body);
+    if (req.body.password !== req.body.confirm) {
+        return res.status(403).json({ message: "Mật khẩu không trùng khớp." });
+    }
+
+    const user = new User({ email: req.body.email, password: req.body.password });
     await user.save();
 
     const token = encodedToken(user._id);
     res.header('jwt', token);
-    return res.status(200).json({ user: user, token: token });
+    return res.status(200).json({ token: token });
 }
 
 exports.signIn = async (req, res, next) => {

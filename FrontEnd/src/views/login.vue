@@ -5,7 +5,7 @@
 <script>
 import FormLogin from '../components/formLogin.vue';
 import userService from '../services/user.service';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 export default {
     components: { FormLogin },
 
@@ -18,9 +18,7 @@ export default {
                 password: userData.password
             }
             try {
-                console.log(user)
                 const token = await userService.signIn(user);
-                console.log(token);
                 router.push({ name: 'Home' });
             } catch (err) {
                 console.log(err);
