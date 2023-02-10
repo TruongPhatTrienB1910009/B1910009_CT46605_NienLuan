@@ -23,3 +23,9 @@ exports.getAllTable = async (req, res, next) => {
     const tables = await Table.find({});
     return res.status(200).json({ tables: tables });
 }
+
+exports.createTable = async (req, res, next) => {
+    const table = new Table(req.body);
+    await table.save();
+    return res.status(200).json({ table: table });
+}

@@ -5,7 +5,8 @@ const tableController = require('../controllers/table.controller')
 
 router.route("/")
     .get(tableController.getAllTable)
-    .post(tableController.bookingTable)
+    .post(tableController.createTable)
+    .put(tableController.bookingTable)
 
 
 module.exports = router;

@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
 const tableSchema = new Schema({
-    code: {
+    name: {
         type: String,
     },
     seat: {
@@ -21,6 +21,10 @@ const tableSchema = new Schema({
     booked: false,
     user: {
         userID: String,
+    },
+    location: {
+        left: Number,
+        top: Number
     },
     menu: {
         type: Schema.Types.ObjectId,

@@ -19,6 +19,7 @@ export default {
             }
             try {
                 const token = await userService.signIn(user);
+
                 router.push({ name: 'Home' });
             } catch (err) {
                 console.log(err);

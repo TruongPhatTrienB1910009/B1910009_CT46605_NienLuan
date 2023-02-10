@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 const mongoose = require('mongoose')
+const cookieParser = require('cookie-parser');
 const { requireAuth, checkUser } = require('./app/middlewares/authMiddleware')
 
 const userRoute = require('./app/routes/user.route')
@@ -12,6 +13,7 @@ const tableRoute = require('./app/routes/table.route')
 // middleware
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 mongoose.set('strictQuery', false);
 const ApiError = require('./app/api-error')
 

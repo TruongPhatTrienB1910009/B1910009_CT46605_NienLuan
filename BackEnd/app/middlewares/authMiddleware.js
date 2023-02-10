@@ -5,7 +5,7 @@ const config = require('../config/index')
 const ApiError = require('../api-error')
 
 const requireAuth = function (req, res, next) {
-    const token = req.headers.jwt;
+    const token = req.cookies.jwt;
     if (token) {
         JWT.verify(token, config.JWT.key, (err, decodedToken) => {
             if (err) {
