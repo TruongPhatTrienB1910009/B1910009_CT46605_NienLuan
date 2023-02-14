@@ -8,6 +8,10 @@ class tableService {
     async getAllTables() {
         return (await this.api.get("/")).data;
     }
+
+    async getTableById(data) {
+        return (await this.api.get("/"), data).data;
+    }
 }
 
 export default new tableService();

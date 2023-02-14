@@ -21,7 +21,7 @@ exports.bookingTable = async (req, res, next) => {
 
 exports.getAllTable = async (req, res, next) => {
     const tables = await Table.find({});
-    return res.status(200).json({ tables: tables });
+    return res.status(200).json({ tables });
 }
 
 exports.createTable = async (req, res, next) => {

@@ -4,6 +4,7 @@ const Table = require('../models/Table');
 const config = require('../config/index');
 const JWT = require('jsonwebtoken');
 
+
 const encodedToken = (userId) => {
     return JWT.sign({
         iss: 'B1910009',
@@ -14,7 +15,6 @@ const encodedToken = (userId) => {
 
 exports.register = async (req, res, next) => {
 
-    console.log(req.body);
     const foundUser = await User.findOne({ email: req.body.email });
 
     if (foundUser) {
@@ -52,7 +52,7 @@ exports.signIn = async (req, res, next) => {
 }
 
 exports.logOut = (req, res, next) => {
-    res.header('jwt', '', { maxAge: 1 })
+    res.cookie('jwt', '', { httpOnly: true, maxAge: 1 })
 }
 
 exports.getAllTablesUser = async (req, res, next) => {

@@ -5,12 +5,14 @@
 <script>
 import FormLogin from '../components/formLogin.vue';
 import userService from '../services/user.service';
-import { useRouter, useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 export default {
     components: { FormLogin },
 
     setup() {
         const router = useRouter();
+        const store = useStore();
 
         async function signIn(userData) {
             const user = {
@@ -18,8 +20,8 @@ export default {
                 password: userData.password
             }
             try {
-                const token = await userService.signIn(user);
-
+                await userService.signIn(user);
+                store.dispatch('setLogIn');
                 router.push({ name: 'Home' });
             } catch (err) {
                 console.log(err);

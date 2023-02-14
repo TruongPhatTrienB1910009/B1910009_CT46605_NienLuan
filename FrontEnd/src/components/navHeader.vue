@@ -2,7 +2,16 @@
     <header>
         <div id="logo">LOGO</div>
         <nav id="navBar">
-            <ul class="">
+            <div v-if="state.value" class="navUser">
+                <div class="navUser__divLink">
+                    <router-link :to='{ name: "Home" }' class="router-link">Trang Chủ</router-link>
+                </div>
+                <div class="navUser__divLink">
+                    <router-link :to='{ name: "Home" }' class="navUser__divLink--router-link"><i
+                            class="fa-solid fa-user"></i></router-link>
+                </div>
+            </div>
+            <ul v-else>
                 <li class="">
                     <router-link :to='{ name: "Home" }' class="router-link">Trang Chủ</router-link>
                 </li>
@@ -16,6 +25,23 @@
         </nav>
     </header>
 </template>
+
+<script>
+import { useStore } from 'vuex';
+import { computed, ref } from 'vue';
+export default {
+    setup() {
+        const store = useStore();
+        const state = ref(store.state.logging);
+
+        state.value = computed(() => store.state.logging);
+
+        return {
+            state
+        }
+    }
+}
+</script>
 
 <style scoped>
 header {
@@ -38,6 +64,10 @@ header {
     color: #333;
 }
 
+.navUser {
+    display: flex;
+}
+
 #navBar ul {
     list-style: none;
 }
@@ -45,9 +75,10 @@ header {
 #navBar ul li {
     position: relative;
     float: left;
-
 }
 
+.navUser__divLink--router-link,
+.navUser .navUser__divLink .router-link,
 #navBar ul li .router-link {
     font-size: 20px;
     padding: 20px;
@@ -56,6 +87,7 @@ header {
     text-decoration: none;
 }
 
+.navUser .navUser__divLink .router-link:hover,
 #navBar ul li .router-link:hover {
     background: #333;
     color: #fff;

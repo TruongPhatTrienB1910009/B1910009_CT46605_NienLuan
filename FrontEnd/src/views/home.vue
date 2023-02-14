@@ -1,30 +1,44 @@
 <template>
     <div class="main">
-        <div id="BGContainer"></div>
+        <div id="BGContainer">
+            <div :class="[table.booked ? 'disabled' : '']" class="box"
+                :style="{ left: `${table.location.left}` + 'px', top: `${table.location.top}` + 'px' }"
+                v-for="table, index in Tables" :key="index" @click="retriveActiveIndex(index)">{{ table.name }}</div>
+        </div>
         <div id="contentContainer">
-
+            <tableInfo :table="tableIndex" />
         </div>
     </div>
 </template>
 
 <script>
-import { reactive, onBeforeMount } from 'vue';
+import { ref, watch, onBeforeMount } from 'vue';
 import tableService from '../services/table.service';
+import tableInfo from '../components/tableInfo.vue';
 export default {
+    components: { tableInfo },
     setup() {
-        const Tables = [];
-        function getOffsetXY(event) {
-            console.log(event);
-        }
+        const Tables = ref([]);
+        const tableIndex = ref(null);
+        const activeIndex = ref(-1);
+
 
         async function getAllTables() {
-            Tables = await tableService.getAllTables();
-            console.log(Tables);
+            Tables.value = (await tableService.getAllTables()).tables;
         }
+
+        function retriveActiveIndex(index) {
+            activeIndex.value = index;
+        }
+
+        watch(activeIndex, (newActiveIndex, oldActiveindex) => {
+            tableIndex.value = Tables.value[newActiveIndex];
+            console.log(tableIndex.value);
+        })
 
         onBeforeMount(getAllTables);
 
-        return { getOffsetXY, Tables }
+        return { Tables, retriveActiveIndex, tableIndex, activeIndex }
     }
 }
 </script>
@@ -46,10 +60,8 @@ export default {
     position: relative;
 }
 
-.box1 {
+.box {
     position: absolute;
-    left: 70px;
-    top: 20px;
     padding: 40px;
     border-radius: 50%;
     background: blue;
@@ -58,46 +70,27 @@ export default {
     justify-content: center;
 }
 
-.box1:hover {
+.box:hover {
     background: green;
     color: white;
     cursor: pointer;
 }
 
-.box2 {
-    position: absolute;
-    left: 240px;
-    top: 20px;
-    padding: 40px;
-    border-radius: 50%;
-    background: blue;
+.disabled {
+    background-color: rgb(99, 25, 25);
+    color: linen;
+    opacity: 1;
+}
+
+.disabled:hover {
+    cursor: not-allowed;
+    background-color: black;
+}
+
+#contentContainer {
+    width: 40%;
+    background: #fff;
     display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.box2:hover {
-    background: green;
-    color: white;
-    cursor: pointer;
-}
-
-.box3 {
-    position: absolute;
-    left: 400px;
-    top: 20px;
-    padding: 40px;
-    border-radius: 50%;
-    background: blue;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.box3:hover {
-    background: green;
-    color: white;
-    cursor: pointer;
 }
 </style>
 
