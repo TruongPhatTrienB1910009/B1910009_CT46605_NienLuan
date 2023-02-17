@@ -4,6 +4,7 @@ import Home from '../views/home.vue';
 import Login from '../views/login.vue';
 import Register from '../views/register.vue';
 import Booking from '../views/booking.vue';
+import Profile from '../views/profile.vue';
 
 const routes = [
     {
@@ -26,6 +27,13 @@ const routes = [
         path: "/table/:id",
         name: "Booking",
         component: Booking,
+        props: true
+    },
+
+    {
+        path: "/user/profile",
+        name: "Profile",
+        component: Profile,
         props: true
     },
 ];

@@ -14,8 +14,8 @@ router.route("/signin")
 router.route("/logout")
     .post(userController.logOut)
 
-router.route("/:id")
-    .get(userController.getAllTablesUser)
+router.route("/:id/info")
+    .get(userController.getUser)
 
 
 module.exports = router;

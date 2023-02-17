@@ -4,6 +4,17 @@ import './assets/main.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import router from './router/index';
-import store from './store';
+import { createPinia } from 'pinia';
 
-createApp(App).use(router).use(store).mount('#app')
+import { globalCookiesConfig } from "vue3-cookies";
+
+globalCookiesConfig({
+    expireTimes: "30d",
+    path: "/",
+    domain: "",
+    secure: true,
+    sameSite: "None",
+});
+
+
+createApp(App).use(router).use(createPinia()).mount('#app')

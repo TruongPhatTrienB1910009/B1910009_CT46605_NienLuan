@@ -59,11 +59,12 @@ export default {
 <style scoped>
 .main {
     width: 100%;
+    height: 100%;
     display: flex;
 }
 
 .main .div-form {
-    height: 100vh;
+    height: 100%;
     width: 60%;
     display: flex;
     justify-content: center;
@@ -140,7 +141,7 @@ form .spn-regs:hover a {
 }
 
 .main .div-text {
-    height: 100vh;
+    height: 100%;
     width: 40%;
     background: linear-gradient(170deg, #8e1df7, #19025e);
     display: flex;

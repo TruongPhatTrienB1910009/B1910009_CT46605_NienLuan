@@ -29,7 +29,7 @@ exports.register = async (req, res, next) => {
     await user.save();
 
     const token = encodedToken(user._id);
-    res.cookie('jwt', token, { httpOnly: true, maxAge: config.JWT.maxAge * 1000 });
+    res.cookie('jwt', token, { maxAge: config.JWT.maxAge * 1000 });
     return res.status(200).json({ token: token });
 }
 
@@ -41,7 +41,7 @@ exports.signIn = async (req, res, next) => {
         } else {
             if (foundUser.password === req.body.password) {
                 const token = encodedToken(foundUser._id);
-                res.cookie('jwt', token, { httpOnly: true, maxAge: config.JWT.maxAge * 1000 });
+                res.cookie('jwt', token, { maxAge: config.JWT.maxAge * 1000 });
                 return res.send(token);
             }
         }
@@ -52,7 +52,8 @@ exports.signIn = async (req, res, next) => {
 }
 
 exports.logOut = (req, res, next) => {
-    res.cookie('jwt', '', { httpOnly: true, maxAge: 1 })
+    res.cookie('jwt', '', { maxAge: 1 })
+    return res.json({ message: 'success' })
 }
 
 exports.getAllTablesUser = async (req, res, next) => {
@@ -60,4 +61,10 @@ exports.getAllTablesUser = async (req, res, next) => {
     const user = await User.findOne({ _id: userId }).populate('tables');
     let document = user.tables;
     return res.status(200).json({ document });
+}
+
+exports.getUser = async (req, res, next) => {
+    const userId = req.params.id;
+    const user = await User.findOne({ _id: userId });
+    return res.status(200).json({ user });
 }

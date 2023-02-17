@@ -12,6 +12,10 @@ class userService {
     async register(data) {
         return (await this.api.post("/register", data)).data;
     }
+
+    async logOut() {
+        return (await this.api.post("/logout")).data;
+    }
 }
 
 export default new userService();

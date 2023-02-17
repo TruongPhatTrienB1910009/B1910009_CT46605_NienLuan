@@ -2,12 +2,12 @@
     <header>
         <div id="logo">LOGO</div>
         <nav id="navBar">
-            <div v-if="state.value" class="navUser">
+            <div v-if="authStore.isLogin" class="navUser">
                 <div class="navUser__divLink">
                     <router-link :to='{ name: "Home" }' class="router-link">Trang Chủ</router-link>
                 </div>
                 <div class="navUser__divLink">
-                    <router-link :to='{ name: "Home" }' class="navUser__divLink--router-link"><i
+                    <router-link :to='{ name: "Profile" }' class="navUser__divLink--router-link"><i
                             class="fa-solid fa-user"></i></router-link>
                 </div>
             </div>
@@ -23,21 +23,16 @@
                 </li>
             </ul>
         </nav>
-    </header>
+</header>
 </template>
 
 <script>
-import { useStore } from 'vuex';
-import { computed, ref } from 'vue';
+import { useAuthStore } from '../stores/auth';
 export default {
     setup() {
-        const store = useStore();
-        const state = ref(store.state.logging);
-
-        state.value = computed(() => store.state.logging);
-
+        const authStore = useAuthStore();
         return {
-            state
+            authStore
         }
     }
 }

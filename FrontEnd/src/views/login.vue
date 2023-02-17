@@ -1,18 +1,17 @@
-<template>
-    <FormLogin @submit:user="signIn" />
-</template>
+<template><FormLogin @submit:user="signIn" /></template>
 
 <script>
 import FormLogin from '../components/formLogin.vue';
 import userService from '../services/user.service';
 import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import { useAuthStore } from '../stores/auth';
+
 export default {
     components: { FormLogin },
 
     setup() {
         const router = useRouter();
-        const store = useStore();
+        const authStore = useAuthStore();
 
         async function signIn(userData) {
             const user = {
@@ -21,7 +20,7 @@ export default {
             }
             try {
                 await userService.signIn(user);
-                store.dispatch('setLogIn');
+                authStore.setState();
                 router.push({ name: 'Home' });
             } catch (err) {
                 console.log(err);

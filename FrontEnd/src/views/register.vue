@@ -1,19 +1,17 @@
-<template>
-    <FormLogin :url="url" @submit:user="register" />
-</template>
+<template><FormLogin :url="url" @submit:user="register" /></template>
 
 <script>
 import FormLogin from '../components/formLogin.vue';
 import userService from '../services/user.service';
 import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import { useAuthStore } from '../stores/auth';
+
 export default {
     components: { FormLogin },
-
     setup() {
         const router = useRouter();
-        const store = useStore();
         const url = 'register';
+        const authStore = useAuthStore();
         async function register(userData) {
             const user = {
                 email: userData.email,
@@ -22,7 +20,7 @@ export default {
             }
             try {
                 await userService.register(user);
-                store.dispatch('setLogIn');
+                authStore.setState();
                 router.push({ name: 'Home' });
             } catch (err) {
                 console.log(err.response.data.message);
