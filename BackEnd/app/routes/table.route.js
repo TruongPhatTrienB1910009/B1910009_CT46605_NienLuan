@@ -7,7 +7,7 @@ const { requireAuth } = require('../middlewares/authMiddleware')
 router.route("/")
     .get(tableController.getAllTable)
     .post(requireAuth, tableController.createTable)
-    .put(requireAuth, tableController.bookingTable)
 
-
+router.route("/:id")
+    .get(tableController.getTableById)
 module.exports = router;

@@ -7,6 +7,7 @@ const { requireAuth } = require('./app/middlewares/authMiddleware')
 
 const userRoute = require('./app/routes/user.route')
 const tableRoute = require('./app/routes/table.route')
+const reservationRoute = require('./app/routes/reservation.route')
 
 
 
@@ -25,6 +26,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/myapp/user", userRoute);
 app.use("/api/myapp/table", tableRoute);
+app.use("/api/myapp/reservation", requireAuth, reservationRoute);
 
 // handle 404 response
 

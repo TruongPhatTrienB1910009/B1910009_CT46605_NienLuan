@@ -17,10 +17,16 @@ const userSchema = new Schema({
         type: String,
         default: 'guest'
     },
-    tables: [
+    name: {
+
+    },
+    phone: {
+        type: String,
+    },
+    reservations: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Table'
+            ref: 'Reservation'
         }
     ]
 })

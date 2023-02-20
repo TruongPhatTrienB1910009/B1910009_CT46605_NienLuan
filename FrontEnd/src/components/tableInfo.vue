@@ -15,13 +15,13 @@
 </template>
 
 <script>
-import tableService from '../services/table.service';
 import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router'
 export default {
     props: ['table'],
     setup(props) {
         const tableInfo = ref(props.table);
+        console.log(props.table)
         const router = useRouter();
         function gotoBooking(tableId) {
             router.push({

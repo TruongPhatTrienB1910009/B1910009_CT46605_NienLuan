@@ -21,7 +21,7 @@ onMounted(() => {
     <navBar />
     <main id="mainScreen" :style="{ height: x + 'px' }">
         <router-view />
-</main>
+    </main>
 </template>
 
 <style scoped>

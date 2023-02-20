@@ -56,15 +56,9 @@ exports.logOut = (req, res, next) => {
     return res.json({ message: 'success' })
 }
 
-exports.getAllTablesUser = async (req, res, next) => {
-    const userId = req.params.id;
-    const user = await User.findOne({ _id: userId }).populate('tables');
-    let document = user.tables;
-    return res.status(200).json({ document });
-}
 
 exports.getUser = async (req, res, next) => {
     const userId = req.params.id;
-    const user = await User.findOne({ _id: userId });
+    const user = await User.findOne({ _id: userId }).populate('reservations');
     return res.status(200).json({ user });
 }

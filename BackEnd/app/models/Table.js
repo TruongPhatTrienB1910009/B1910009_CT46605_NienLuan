@@ -10,26 +10,19 @@ const tableSchema = new Schema({
         type: Number,
         required: true
     },
-    date: {
-        type: Date,
-        required: true
-    },
-    time: {
-        type: String,
-        required: true
-    },
-    booked: false,
-    user: {
-        userID: String,
-    },
     location: {
         left: Number,
         top: Number
     },
-    menu: {
-        type: Schema.Types.ObjectId,
-        ref: 'Menu'
-    }
+    place: {
+        type: String
+    },
+    reservations: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Reservation'
+        }
+    ]
 })
 
 const Table = mongoose.model('Table', tableSchema)

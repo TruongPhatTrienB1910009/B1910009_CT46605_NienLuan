@@ -9,8 +9,8 @@ class tableService {
         return (await this.api.get("/")).data;
     }
 
-    async getTableById(data) {
-        return (await this.api.get("/"), data).data;
+    async getTableById(id) {
+        return (await this.api.get(`/${id}`)).data;
     }
 }
 

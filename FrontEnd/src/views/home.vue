@@ -1,7 +1,7 @@
 <template>
     <div class="main">
         <div id="BGContainer">
-            <div :class="[table.booked ? 'disabled' : '']" class="box"
+            <div :class="[table.reservations.length !== 0 ? 'disabled' : '']" class="box"
                 :style="{ left: `${table.location.left}` + 'px', top: `${table.location.top}` + 'px' }"
                 v-for="table, index in Tables" :key="index" @click="retriveActiveIndex(index)">{{ table.name }}</div>
         </div>
@@ -93,5 +93,3 @@ export default {
     display: flex;
 }
 </style>
-
-
