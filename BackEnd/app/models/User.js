@@ -17,12 +17,6 @@ const userSchema = new Schema({
         type: String,
         default: 'guest'
     },
-    name: {
-
-    },
-    phone: {
-        type: String,
-    },
     reservations: [
         {
             type: Schema.Types.ObjectId,

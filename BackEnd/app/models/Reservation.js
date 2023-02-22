@@ -3,7 +3,16 @@ const Schema = mongoose.Schema;
 
 const reserSchema = new Schema({
     dateBooking: {
-        type: Date
+        type: String
+    },
+    name: {
+        type: String
+    },
+    phone: {
+        type: String
+    },
+    note: {
+        type: String
     },
     user: [
         {

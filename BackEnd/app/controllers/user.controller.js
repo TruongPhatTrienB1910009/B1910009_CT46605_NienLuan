@@ -30,7 +30,7 @@ exports.register = async (req, res, next) => {
 
     const token = encodedToken(user._id);
     res.cookie('jwt', token, { maxAge: config.JWT.maxAge * 1000 });
-    return res.status(200).json({ token: token });
+    return res.status(200).json({ user });
 }
 
 exports.signIn = async (req, res, next) => {
@@ -42,7 +42,7 @@ exports.signIn = async (req, res, next) => {
             if (foundUser.password === req.body.password) {
                 const token = encodedToken(foundUser._id);
                 res.cookie('jwt', token, { maxAge: config.JWT.maxAge * 1000 });
-                return res.send(token);
+                return res.send(foundUser);
             }
         }
     } catch (e) {

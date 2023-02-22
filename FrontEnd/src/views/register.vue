@@ -1,4 +1,6 @@
-<template><FormLogin :url="url" @submit:user="register" /></template>
+<template>
+    <FormLogin :url="url" @submit:user="register" />
+</template>
 
 <script>
 import FormLogin from '../components/formLogin.vue';
@@ -19,8 +21,8 @@ export default {
                 confirm: userData.confirm
             }
             try {
-                await userService.register(user);
-                authStore.setState();
+                const res = await userService.register(user);
+                authStore.setUser(res._id);
                 router.push({ name: 'Home' });
             } catch (err) {
                 console.log(err.response.data.message);

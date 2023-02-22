@@ -1,20 +1,13 @@
 <script setup>
 import { onMounted } from "vue";
 import { useAuthStore } from "./stores/auth";
-import { useCookies } from "vue3-cookies";
 import navBar from "./components/navHeader.vue";
 const x = screen.availHeight - 175;
 const authStore = useAuthStore();
-const { cookies } = useCookies();
 
 onMounted(() => {
-    const jwt = cookies.get("jwt");
-    if (jwt !== null) {
-        authStore.setState();
-    }
-})
-
-
+    authStore.checkUser();
+});
 </script>
 
 <template>

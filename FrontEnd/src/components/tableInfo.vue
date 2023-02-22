@@ -21,7 +21,6 @@ export default {
     props: ['table'],
     setup(props) {
         const tableInfo = ref(props.table);
-        console.log(props.table)
         const router = useRouter();
         function gotoBooking(tableId) {
             router.push({

@@ -1,4 +1,6 @@
-<template><profileCard @logout-user="userLogout" /></template>
+<template>
+    <profileCard @logout-user="userLogout" />
+</template>
 
 <script>
 import profileCard from '../components/profileCard.vue';
