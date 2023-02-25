@@ -1,8 +1,22 @@
 * {
+  box-sizing: border-box;
+}
+
+body {
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
+  background-image: url(https://wallpaperaccess.com/full/1095260.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+}
+
+body>* {
   font-family: Arial, Helvetica, sans-serif;
-  text-transform: capitalize;
-  text-decoration: none;
+}
+
+#app {
+  min-height: 640px;
+  overflow: hidden;
 }

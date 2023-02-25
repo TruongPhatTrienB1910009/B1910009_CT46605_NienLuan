@@ -1,33 +1,33 @@
 <template>
-    <div class="main">
-        <div class="div-form">
-            <h1>Hello!</h1>
-            <form @submit.prevent="getUser">
-                <div class="inp">
-                    <i class="fa-regular fa-user"></i>
-                    <input type="email" name="email" id="email" placeholder="Email" v-model="user.email">
-                </div>
-                <div class="inp">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" name="password" id="password" placeholder="Password" v-model="user.password">
-                </div>
-                <div class="inp" v-if="url">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" name="confirm" id="confirm" placeholder="Confirm" v-model="user.confirm">
-                </div>
-                <button v-if="url" class="btn-css" type="submit">Đăng Ký</button>
-                <button v-else class="btn-css" type="submit">Đăng Nhập</button>
-                <span v-if="url" class="spn-regs">Đã có tài khoản?
-                    <router-link :to="{ name: 'Login' }">Đăng Nhập</router-link>
-                </span>
-                <span v-else class="spn-regs">Chưa có tài khoản?
-                    <router-link :to="{ name: 'Register' }">Đăng Ký</router-link>
-                </span>
-            </form>
-        </div>
-        <div class="div-text">
-            <h1>Chào Mừng Bạn Đã Đến Với TTC</h1>
-            <p>Chúng tôi cam kết sẽ tận tâm phục vụ và mang đến những trải nghiệm tuyệt vời cho khách hàng.</p>
+    <div class="mainContain container">
+        <div class="contain" :class="{ 'containRegister': url === 'register' }">
+            <div class="divform">
+                <h1 v-if="url !== 'register'">ĐĂNG NHẬP</h1>
+                <h1 v-else>ĐĂNG KÝ</h1>
+                <hr>
+                <form @submit.prevent="getUser">
+                    <div class="divContain">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="emai" placeholder="Nhập vào email của bạn" v-model="user.email">
+                    </div>
+                    <div class="divContain">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" placeholder="Nhập mật khẩu" v-model="user.password">
+                    </div>
+                    <div v-if="url === 'register'" class="divContain">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" placeholder="Xác nhận mật khẩu" v-model="user.confirm">
+                    </div>
+                    <p v-if="url !== 'register'">Bạn chưa có mật khẩu <router-link :to="{ name: 'Register' }">Đăng
+                            ký</router-link>
+                    </p>
+                    <p v-else>Bạn đã có mật khẩu <router-link :to="{ name: 'Login' }">Đăng
+                            nhập</router-link>
+                    </p>
+                    <button v-if="url !== 'register'" class="btnCss" type="submit">ĐĂNG NHẬP</button>
+                    <button v-else class="btnCss" type="submit">ĐĂNG KÝ</button>
+                </form>
+            </div>
         </div>
     </div>
 </template>
@@ -46,7 +46,6 @@ export default {
         })
 
         const url = props.url;
-
         function getUser() {
             ctx.emit('submit:user', user);
         }
@@ -57,111 +56,64 @@ export default {
 </script>
 
 <style scoped>
-.main {
-    width: 100%;
-    height: 100%;
-    display: flex;
+.contain {
+    margin-top: 160px;
+    margin-bottom: 140px;
+    height: 400px;
+    width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: aqua;
+    border-radius: 10px;
+    padding: 20px;
 }
 
-.main .div-form {
-    height: 100%;
-    width: 60%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.containRegister {
+    margin-top: 130px;
+    height: 460px;
+    margin-bottom: 110px;
 }
 
-.main .div-form h1 {
-    font-size: 50px;
-    margin-bottom: 50px;
+.divform h1 {
+    text-align: center;
+    padding-top: 10px;
+    font-weight: 700;
 }
 
-.main .div-form form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+form {
+    text-align: center;
 }
 
-form .inp {
-    width: 60%;
-    margin: auto;
-    height: 60px;
-    margin-bottom: 30px;
-    border-radius: 50px;
-    box-shadow: 20px 20px 20px #8e1df720, -10px -10px 20px #8e1df720;
-    position: relative;
+.divContain {
+    line-height: 30px;
+    margin: 25px auto;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    width: 360px;
 }
 
-form .inp input {
-    width: 100%;
-    height: 100%;
-    border-radius: 50px;
+.divContain i {
+    color: aqua;
+}
+
+
+.divContain input {
+    width: 320px;
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 5px 0;
+}
+
+input:focus {
     outline: none;
-    border: none;
-    padding: 20px 70px;
-    font-size: 18px;
 }
 
-form .inp i {
-    position: absolute;
-    color: #8e1df7;
-    font-size: 30px;
-    top: 50%;
-    left: 20px;
-    transform: translateY(-50%);
-}
-
-form .btn-css {
-    color: #fff;
-    font-size: 20px;
-    width: 250px;
-    margin: auto;
-    background: linear-gradient(170deg, #8e1df7, #19025e);
-    padding: 15px;
+.btnCss {
+    width: 260px;
+    height: 50px;
     border-radius: 50px;
-    cursor: pointer;
-    border: none;
-    margin-bottom: 20px;
-
-}
-
-form .spn-regs {
-    text-align: center;
-    font-size: 14px;
-}
-
-form .spn-regs a {
-    color: #8e1df7;
-    text-decoration: none;
-}
-
-form .spn-regs:hover a {
-    text-decoration: underline;
-}
-
-.main .div-text {
-    height: 100%;
-    width: 40%;
-    background: linear-gradient(170deg, #8e1df7, #19025e);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-}
-
-.main .div-text h1 {
-    color: #fff;
-    font-size: 40px;
-    margin-bottom: 20px;
-}
-
-.main .div-text p {
-    margin: 0 auto;
-    width: 60%;
-    color: #f0f0f0;
-    font-size: 14px;
-    line-height: 2;
+    border: 0;
 }
 </style>

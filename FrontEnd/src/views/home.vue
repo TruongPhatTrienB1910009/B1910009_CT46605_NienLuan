@@ -1,95 +1,98 @@
 <template>
-    <div class="main">
-        <div id="BGContainer">
-            <div :class="[table.reservations.length !== 0 ? 'disabled' : '']" class="box"
-                :style="{ left: `${table.location.left}` + 'px', top: `${table.location.top}` + 'px' }"
-                v-for="table, index in Tables" :key="index" @click="retriveActiveIndex(index)">{{ table.name }}</div>
-        </div>
-        <div id="contentContainer">
-            <tableInfo :table="tableIndex" />
+    <div class="container">
+        <div class="contain">
+            <div id="banner" class="row">
+                <div class="left-column col-sm-8">
+                    <slideShow />
+                </div>
+                <div class="right-column col-sm-4">
+                    <img class="seafood" src="../assets/images/img.png" alt="">
+                    <div class="image__icon">
+                        <a href="">
+                            <img src="../assets/images/facebook.png" alt="">
+                        </a>
+                        <a href="">
+                            <img src="../assets/images/twitter.png" alt="">
+                        </a>
+                        <a href="">
+                            <img src="../assets/images/instagram.png" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div id="banner__options">
+
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import { ref, watch, onBeforeMount } from 'vue';
-import tableService from '../services/table.service';
-import tableInfo from '../components/tableInfo.vue';
+import slideShow from "../components/slideShow.vue"
+
 export default {
-    components: { tableInfo },
+    components: { slideShow },
     setup() {
-        const Tables = ref([]);
-        const tableIndex = ref(null);
-        const activeIndex = ref(-1);
 
-
-        async function getAllTables() {
-            Tables.value = (await tableService.getAllTables()).tables;
-        }
-
-        function retriveActiveIndex(index) {
-            activeIndex.value = index;
-        }
-
-        watch(activeIndex, (newActiveIndex, oldActiveindex) => {
-            tableIndex.value = Tables.value[newActiveIndex];
-            console.log(tableIndex.value);
-        })
-
-        onBeforeMount(getAllTables);
-
-        return { Tables, retriveActiveIndex, tableIndex, activeIndex }
     }
 }
 </script>
 
 <style scoped>
-.main {
-    display: flex;
+.contain {
+    margin-top: 120px;
+}
+
+#banner {
+    background-color: #fff;
+    padding: 10px;
+    height: 360px;
     width: 100%;
-    margin-top: 70px
+    margin-left: 0;
+    margin-right: 0;
 }
 
-#BGContainer {
-    height: 800px;
-    width: 60%;
-    background-image: url("C:\Users\ADMIN\Desktop\NIEN LUAN NGANH\NIENLUAN\WEB_NIENLUAN\FrontEnd\public\images\BG.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    position: relative;
+#banner .left-column {
+    width: 100%;
+    height: 100%;
+    padding: 0;
 }
 
-.box {
-    position: absolute;
-    padding: 40px;
-    border-radius: 50%;
-    background: blue;
+
+
+#banner .right-column {
+    padding-right: 0;
+}
+
+#banner .right-column .seafood {
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+
+.right-column .image__icon {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.box:hover {
-    background: green;
-    color: white;
-    cursor: pointer;
+.right-column .image__icon img {
+    width: 60px;
+    height: 60px;
+    margin: 24px 12px 0 12px;
+    transition: transform .2s;
 }
 
-.disabled {
-    background-color: rgb(99, 25, 25);
-    color: linen;
-    opacity: 1;
+.right-column .image__icon img:hover {
+    transform: scale(1.5);
 }
 
-.disabled:hover {
-    cursor: not-allowed;
-    background-color: black;
-}
-
-#contentContainer {
-    width: 40%;
-    background: #fff;
-    display: flex;
+#banner__options {
+    width: 100%;
+    height: 120px;
+    padding: 20px;
+    background-color: #fff;
+    margin: 20px 0 70px 0;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <header>
-        <div id="logo">LOGO</div>
+        <div id="logo"><img class="seafood" src="../assets/images/img.png" alt=""></div>
         <nav id="navBar">
             <div v-if="authStore.isLogin" class="navUser">
                 <div class="navUser__divLink">
@@ -23,7 +23,7 @@
                 </li>
             </ul>
         </nav>
-</header>
+    </header>
 </template>
 
 <script>
@@ -49,14 +49,12 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #fff;
+    background-color: #d2e3f5;
     z-index: 100;
 }
 
-#logo {
-    font-weight: bolder;
-    font-size: 25px;
-    color: #333;
+#logo img {
+    max-height: 60px;
 }
 
 .navUser {

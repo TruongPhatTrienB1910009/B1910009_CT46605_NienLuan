@@ -5,12 +5,18 @@ import Login from '../views/login.vue';
 import Register from '../views/register.vue';
 import Booking from '../views/booking.vue';
 import Profile from '../views/profile.vue';
+import OverviewTable from '../views/overviewTables.vue';
 
 const routes = [
     {
         path: "/",
         name: "Home",
         component: Home,
+    },
+    {
+        path: "/table",
+        name: "OverviewTable",
+        component: OverviewTable,
     },
     {
         path: "/user/signin",
