@@ -1,95 +1,51 @@
 <template>
     <div class="main">
         <div id="BGContainer">
-            <div :class="[table.reservations.length !== 0 ? 'disabled' : '']" class="box"
-                :style="{ left: `${table.location.left}` + 'px', top: `${table.location.top}` + 'px' }"
-                v-for="table, index in Tables" :key="index" @click="retriveActiveIndex(index)">{{ table.name }}</div>
+            <img class="img-response" src="../assets/images/restaurant.png" alt="">
         </div>
         <div id="contentContainer">
-            <tableInfo :table="tableIndex" />
+            <tableInfo />
         </div>
     </div>
 </template>
 
 <script>
-import { ref, watch, onBeforeMount } from 'vue';
-import tableService from '../services/table.service';
 import tableInfo from '../components/tableInfo.vue';
 export default {
     components: { tableInfo },
     setup() {
-        const Tables = ref([]);
-        const tableIndex = ref(null);
-        const activeIndex = ref(-1);
-
-
-        async function getAllTables() {
-            Tables.value = (await tableService.getAllTables()).tables;
-        }
-
-        function retriveActiveIndex(index) {
-            activeIndex.value = index;
-        }
-
-        watch(activeIndex, (newActiveIndex, oldActiveindex) => {
-            tableIndex.value = Tables.value[newActiveIndex];
-            console.log(tableIndex.value);
-        })
-
-        onBeforeMount(getAllTables);
-
-        return { Tables, retriveActiveIndex, tableIndex, activeIndex }
     }
 }
 </script>
 
 <style scoped>
 .main {
+    margin-top: 110px;
     display: flex;
-    width: 100%;
-    margin-top: 70px
-}
-
-#BGContainer {
-    height: 800px;
-    width: 60%;
-    background-image: url("C:\Users\ADMIN\Desktop\NIEN LUAN NGANH\NIENLUAN\WEB_NIENLUAN\FrontEnd\public\images\BG.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
     position: relative;
 }
 
-.box {
-    position: absolute;
-    padding: 40px;
-    border-radius: 50%;
-    background: blue;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.modal {
+    position: fixed;
+    width: 200px;
+    height: 200px;
+    z-index: 10;
+    background-color: rgb(145, 156, 165);
 }
 
-.box:hover {
-    background: green;
-    color: white;
-    cursor: pointer;
+.img-response {
+    width: 100%;
+    height: auto;
 }
 
-.disabled {
-    background-color: rgb(99, 25, 25);
-    color: linen;
-    opacity: 1;
-}
-
-.disabled:hover {
-    cursor: not-allowed;
-    background-color: black;
+#BGContainer {
+    width: 60%;
 }
 
 #contentContainer {
     width: 40%;
-    background: #fff;
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
 </style>

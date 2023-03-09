@@ -16,6 +16,10 @@ class userService {
     async logOut() {
         return (await this.api.post("/logout")).data;
     }
+
+    async getUser(id) {
+        return (await this.api.get(`/${id}`)).data;
+    }
 }
 
 export default new userService();

@@ -45,12 +45,12 @@ header {
     left: 0;
     right: 0;
     padding: 0 7%;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #d2e3f5;
+    background-color: rgba(0, 0, 0, 0.8);
     z-index: 100;
+    height: 110px;
 }
 
 #logo img {
@@ -73,11 +73,12 @@ header {
 .navUser__divLink--router-link,
 .navUser .navUser__divLink .router-link,
 #navBar ul li .router-link {
-    font-size: 20px;
+    font-size: 16px;
     padding: 20px;
-    color: #333;
+    color: #ffffff;
     display: block;
     text-decoration: none;
+    text-transform: uppercase;
 }
 
 .navUser .navUser__divLink .router-link:hover,

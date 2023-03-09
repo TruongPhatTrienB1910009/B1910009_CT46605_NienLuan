@@ -17,6 +17,10 @@ const tableSchema = new Schema({
     place: {
         type: String
     },
+    isBooked: {
+        type: Boolean,
+        default: false
+    },
     reservations: [
         {
             type: Schema.Types.ObjectId,

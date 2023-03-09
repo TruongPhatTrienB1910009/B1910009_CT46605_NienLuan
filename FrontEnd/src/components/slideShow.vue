@@ -16,19 +16,18 @@ export default {
             {
                 title: '',
                 content: '',
-                image: "https://www.thetimes.co.uk/imageserver/image/%2Fmethode%2Ftimes%2Fprod%2Fweb%2Fbin%2Fd1eeaf9e-a8f1-11eb-9b76-9500a3917e5f.jpg?crop=7573%2C4260%2C221%2C899&resize=1200",
+                image: "https://kdesign.vn/wp-content/uploads/2021/05/nha-hang-theo-phong-cach-trung-quoc-13danen.jpg",
             },
             {
                 title: '',
                 content: '',
-                image: "https://www.coles.com.au/content/dam/coles/inspire-create/dec20-images/December20-seafood-platter-976x549.jpg",
+                image: "https://cardiff.imgix.net/__data/assets/image/0004/2695540/GettyImages-1388791611.jpg?w=873&h=491&fit=crop&q=60&auto=format",
             },
             {
                 title: '',
                 content: '',
-                image: "https://cdn.vox-cdn.com/thumbor/7Rz9pDWhpC83Cfa7HE30pkbExkI=/0x0:1000x667/1200x900/filters:focal(420x254:580x414):no_upscale()/cdn.vox-cdn.com/uploads/chorus_image/image/62558206/7677195C_5AC2_488B_822D_B74E42D909B7.0.0.jpeg",
+                image: "https://popmenucloud.com/gjlhrpie/1d984609-c1c1-461a-9fdb-8587ee72aa32",
             },
-            // Other slides.
         ]
     })
 }

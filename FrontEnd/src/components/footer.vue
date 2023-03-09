@@ -1,16 +1,19 @@
 <template>
     <footer>
-        <div class="container">
-            <div class="row">
-                <div id="footer-left" class="col-sm-6">
-                    <img src="../assets/images/img.png" alt="" class="logo">
-                    <div class="info">
-                        <p><i class="fa-solid fa-location-dot"></i> Khu 2, Đ. 3/2, P. Xuân Khánh, Q. Ninh Kiều, TP. CT</p>
-                        <p><i class="fa-solid fa-phone"></i> 0787899778</p>
-                        <p><i class="fa-solid fa-envelope"></i> Trienb1910009@student.ctu.edu.vn</p>
+        <div class="overlay">
+            <div class="container">
+                <div class="row">
+                    <div id="footer-left" class="col-sm-6">
+                        <img src="../assets/images/img.png" alt="" class="logo">
+                        <div class="info">
+                            <p><i class="fa-solid fa-location-dot"></i> Khu 2, Đ. 3/2, P. Xuân Khánh, Q. Ninh Kiều, TP. CT
+                            </p>
+                            <p><i class="fa-solid fa-phone"></i> 0787899778</p>
+                            <p><i class="fa-solid fa-envelope"></i> Trienb1910009@student.ctu.edu.vn</p>
+                        </div>
                     </div>
+                    <div class="col-sm-6"></div>
                 </div>
-                <div class="col-sm-6"></div>
             </div>
         </div>
     </footer>
@@ -19,11 +22,14 @@
 <style scoped>
 footer {
     width: 100%;
-    height: 100px;
-    background-color: #6081c4;
-    overflow: hidden;
-    font-family: Rubik, Arial, sans-serif;
+    background-image: url(https://ussinavietnam.vn/wp-content/uploads/2019/08/menu-bg3.jpg);
+    color: #B4B4B4;
+    font-weight: 400;
+    font-family: 'UTM-BryantLG';
+    font-size: 14px;
 }
+
+
 
 .logo {
     width: 80px;

@@ -30,7 +30,7 @@ exports.register = async (req, res, next) => {
 
     const token = encodedToken(user._id);
     res.cookie('jwt', token, { maxAge: config.JWT.maxAge * 1000 });
-    return res.status(200).json({ user });
+    return res.status(200).json(user);
 }
 
 exports.signIn = async (req, res, next) => {
@@ -60,5 +60,5 @@ exports.logOut = (req, res, next) => {
 exports.getUser = async (req, res, next) => {
     const userId = req.params.id;
     const user = await User.findOne({ _id: userId }).populate('reservations');
-    return res.status(200).json({ user });
+    return res.status(200).json(user);
 }

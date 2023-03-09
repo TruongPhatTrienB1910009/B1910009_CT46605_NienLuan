@@ -1,3 +1,14 @@
+@font-face {
+  font-family: 'UTM-Pacific-Standard';
+  src: url('./fonts/UTM-Pacific-Standard.ttf');
+}
+
+@font-face {
+  font-family: 'UTM-BryantLG';
+  src: url('./fonts/UTM-BryantLG.ttf');
+}
+
+
 * {
   box-sizing: border-box;
 }
@@ -5,7 +16,6 @@
 body {
   padding: 0;
   margin: 0;
-  background-image: url(https://wallpaperaccess.com/full/1095260.png);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -13,7 +23,7 @@ body {
 }
 
 body>* {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'UTM-BryantLG', Arial, Helvetica, sans-serif;
 }
 
 #app {

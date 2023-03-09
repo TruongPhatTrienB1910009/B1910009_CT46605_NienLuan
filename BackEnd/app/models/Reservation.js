@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const reserSchema = new Schema({
-    dateBooking: {
+    dateBooking: String,
+    timeBooking: {
         type: String
     },
     name: {
@@ -13,6 +14,9 @@ const reserSchema = new Schema({
     },
     note: {
         type: String
+    },
+    seat: {
+        type: Number
     },
     user: [
         {

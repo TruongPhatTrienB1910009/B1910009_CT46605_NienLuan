@@ -2,7 +2,7 @@ const Table = require('../models/Table');
 const User = require('../models/User');
 
 exports.getAllTable = async (req, res, next) => {
-    const tables = await Table.find({});
+    const tables = await Table.find({}).populate('reservations');
     return res.status(200).json({ tables });
 }
 

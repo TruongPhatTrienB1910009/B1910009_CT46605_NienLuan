@@ -3,21 +3,24 @@ const User = require('../models/User');
 const Table = require('../models/Table');
 exports.createReser = async (req, res, next) => {
     const data = req.body;
+    console.log(data);
     const reservation = new Reservation({
+        dateBooking: data.dateBooking,
+        timeBooking: data.timeBooking,
         name: data.name,
         phone: data.phone,
-        dateBooking: data.dateBooking,
-        note: data.note
+        note: data.note,
+        seat: data.seat
     });
-    reservation.table.push(data.table);
-    reservation.user.push(data.user);
+    reservation.table.push(data.tableID);
+    reservation.user.push(data.userID);
     await reservation.save();
 
-    const user = await User.findById(data.user);
+    const user = await User.findById(data.userID);
     user.reservations.push(reservation._id);
     await user.save();
 
-    const table = await Table.findById(data.table);
+    const table = await Table.findById(data.tableID);
     table.reservations.push(reservation._id);
     await table.save();
 
