@@ -4,7 +4,6 @@
             <div class="left">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvts5aHBstDkR8PigS4RmZkbZy78zpZoSuOw&usqp=CAU"
                     alt="">
-                <!-- <h4>NAME</h4> -->
                 <button class="btn btn-info">ĐĂNG XUẤT</button>
             </div>
             <div class="right">
@@ -24,8 +23,57 @@
 
                 <div class="Tables">
                     <h3>THÔNG TIN ĐẶT BÀN</h3>
-                    <n-scrollbar style="max-height: 120px">
-
+                    <n-scrollbar style="max-height: 270px">
+                        <div v-for="reser, index in reservations" :key="index" class="cardReser">
+                            <div class="title" @click="handleAccordion(index)">
+                                <h4>Ngày nhận bàn: {{ reser.dateBooking }}</h4>
+                            </div>
+                            <Collapse :when="reser.isExpanded" class="v-collapse">
+                                <div class="cardReser-group row">
+                                    <div class="col-sm-6">
+                                        <span>Tên người nhận: </span>
+                                        <p>{{ reser.name }}</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <span>Số điện thoại: </span>
+                                        <p>{{ reser.phone }}</p>
+                                    </div>
+                                </div>
+                                <div class="cardReser-group row">
+                                    <div class="col-sm-6">
+                                        <span>Số chỗ ngồi: </span>
+                                        <p>{{ reser.seat }}</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <span>Ghi chú: </span>
+                                        <p>{{ reser.note }}</p>
+                                    </div>
+                                </div>
+                                <div class="cardReser-group row">
+                                    <div class="col-sm-6">
+                                        <span>Tên bàn: </span>
+                                        <p>{{ reser.table[0].name }}</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <span>Giờ nhận: </span>
+                                        <p>{{ reser.timeBooking }}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4>Các món đặt trước</h4>
+                                    <div v-for="food, fIndex in reser.foods" :key="fIndex">
+                                        <div class="row m-3">
+                                            <p class="col-sm-4">{{ food.name }}</p>
+                                            <p class="col-sm-4">{{ food.price }}</p>
+                                            <p class="col-sm-4"><button @click="removeFood({
+                                                reserID: reser._id, foodID: food._id, action: 'remove'
+                                            })" class="btn btn-danger">Xóa</button></p>
+                                        </div>
+                                    </div>
+                                    <button @click="gotoMenu(reser._id)" class="btn btn-info">Thêm món ăn</button>
+                                </div>
+                            </Collapse>
+                        </div>
                     </n-scrollbar>
                 </div>
             </div>
@@ -39,38 +87,78 @@ import userService from '../services/user.service';
 import { useAuthStore } from '../stores/auth';
 import { reactive, onBeforeMount, ref } from 'vue';
 import { Collapse } from 'vue-collapsed';
+import reservationService from '../services/reservation.service';
+import { useRouter } from 'vue-router';
 export default {
     components: { profileCard, Collapse },
     setup() {
         const authStore = useAuthStore();
-        const isExpanded = ref(false)
-
+        const reservations = ref([]);
+        const document = reactive({ 'user': '' })
+        const router = useRouter();
 
         async function logout() {
             await userService.logOut();
             authStore.logOut();
         }
 
-        const document = reactive({ 'user': '' })
-
-        async function GetUser() {
+        async function GetRser() {
             document.user = await userService.getUser(authStore.userID);
+            reservations.value = await reservationService.getReservationByUserID(authStore.userID);
+            reservations.value.forEach((reser) => {
+                reser["isExpanded"] = false;
+            })
+        }
+
+        async function removeFood(data) {
+            await reservationService.addorremoveFood(data);
+            reservations.value = await reservationService.getReservationByUserID(authStore.userID);
+            reservations.value.forEach((reser, index) => {
+                reser["isExpanded"] = false;
+                if (reservations.value[index]._id == data.reserID) {
+                    reservations.value[index].isExpanded = true;
+                }
+            })
+        }
+
+        function handleAccordion(selectedIndex) {
+            reservations.value.forEach((_, index) => {
+                reservations.value[index].isExpanded = index === selectedIndex ? !reservations.value[index].isExpanded : false
+            })
+        }
+
+        function gotoMenu(ID) {
+            router.push({ name: 'MenuPage', query: { ReserID: ID } })
         }
 
         onBeforeMount(() => {
-            GetUser();
+            GetRser();
         })
 
         return {
-            logout, document, isExpanded
+            logout, document, reservations, handleAccordion, gotoMenu, removeFood
         }
     }
 }
 </script>
 
 <style scoped>
-.my-class {
-    transition: height 300ms cubic-bezier(0.3, 0, 0.6, 1);
+.cardReser {
+    border: 1px solid #ccc;
+}
+
+
+.title {
+    padding: 10px 0;
+    color: rgb(232, 93, 93);
+}
+
+.title h4 {
+    margin: 0;
+}
+
+.v-collapse {
+    transition: height var(--vc-auto-duration) cubic-bezier(0.33, 1, 0.68, 1);
 }
 
 .profile__container {
@@ -83,8 +171,9 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 860px;
-    min-height: 400px;
+    width: 960px;
+    min-height: 550px;
+    margin-top: 50px;
     display: flex;
     box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
 }

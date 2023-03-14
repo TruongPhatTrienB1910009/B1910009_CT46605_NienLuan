@@ -30,9 +30,9 @@ const reserSchema = new Schema({
             ref: 'Table'
         }
     ],
-    menu: [{
+    foods: [{
         type: Schema.Types.ObjectId,
-        ref: 'Menu'
+        ref: 'Food'
     }]
 })
 

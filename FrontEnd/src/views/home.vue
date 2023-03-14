@@ -69,7 +69,7 @@
                     <img src="../assets/images/steak.jpg" alt="">
                     <div class="booking__container-nav-btn">
                         <button @click="gotoOverviewTable" type="button">ĐẶT BÀN</button>
-                        <button type="button">THỰC ĐƠN</button>
+                        <button type="button"><router-link :to="{ name: 'MenuPage' }">THỰC ĐƠN</router-link></button>
                     </div>
                 </div>
             </div>
@@ -175,5 +175,14 @@ h2 {
     font-weight: 900;
     width: 200px;
 
+}
+
+.booking__container-nav-btn button:last-child:hover {
+    background-color: #981B1E;
+}
+
+.booking__container-nav-btn button:last-child>* {
+    text-decoration: none;
+    color: #fff;
 }
 </style>

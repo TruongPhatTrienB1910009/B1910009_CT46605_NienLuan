@@ -23,8 +23,8 @@
                     </div>
                     <div class="infoBooking row">
                         <span class="col-sm-4">SỐ NGƯỜI:</span>
-                        <input placeholder="Số người tối thiểu là 1" class="col-sm-8" min="1" type="number"
-                            v-model="reser.seat">
+                        <input placeholder="Số người tối thiểu là 1" class="col-sm-8" min="1" :max="temp.table.seat"
+                            type="number" v-model="reser.seat">
                     </div>
                     <div class="infoBooking row">
                         <span class="col-sm-4">ĐIỆN THOẠI:</span>
@@ -70,7 +70,7 @@ export default {
             timeBooking: null,
             seat: null,
             note: null,
-            tableID: props.temp.tableID,
+            tableID: props.temp.table._id,
             userID: authStore.userID
         })
 

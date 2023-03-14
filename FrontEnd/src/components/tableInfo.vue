@@ -57,8 +57,7 @@
                 <n-scrollbar style="max-height: 380px">
                     <div v-for="table, index in filter" :key="index" class="cardTable">
                         <n-collapse>
-                            <n-collapse-item :style="{ 'font-size': '40px', 'font-weight': '700' }" :title="table.name"
-                                class="cardTableItem">
+                            <n-collapse-item :title="table.name" class="cardTableItem">
                                 <div class="cardInfo">
                                     <div>SỐ CHỖ NGỒI: {{ table.seat }}</div>
                                     <div v-if="table.place === 'outside'">VỊ TRÍ: OUTSIDE</div>
@@ -92,7 +91,7 @@ export default {
         const Tables = ref([]);
         const loading = ref(false);
         const temp = reactive({
-            tableID: null,
+            table: null,
             dateBooking: new Date(Date.now()).toISOString().slice(0, 10)
         });
 
@@ -121,8 +120,6 @@ export default {
                 .then(function (res) {
                     const filterData = ref([]);
                     filterData.value = res.value;
-                    console.log(initTable.place)
-                    console.log(filterData.value)
                     if (initTable.place !== null) {
                         filterData.value = res.value.filter((table) => table.place === initTable.place);
                         filter.value = filterData.value;
@@ -130,11 +127,8 @@ export default {
                     return filterData;
                 })
                 .then(function (res) {
-                    console.log(res.value);
-                    console.log(initTable.dateBooking);
                     res.value.forEach((table) => {
                         const result = table.reservations.find((reser) => {
-                            console.log(reser.dateBooking);
                             return reser.dateBooking === initTable.dateBooking;
                         })
 
@@ -171,13 +165,14 @@ export default {
 
         function showModalBooking(index) {
             console.log(filter.value[index]._id);
-            temp.tableID = filter.value[index]._id;
+            temp.table = filter.value[index];
             temp.dateBooking = initTable.dateBooking;
             showModal.value = true;
         }
 
         function closeModal() {
             showModal.value = false;
+            getAllTables();
         }
 
         onBeforeMount(() => {

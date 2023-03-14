@@ -12,9 +12,7 @@ const foodSchema = new Schema({
     image: {
         type: String,
     },
-    note: {
-        type: String,
-    }
+    type: String
 });
 
 const Food = mongoose.model('Food', foodSchema);

@@ -1,12 +1,24 @@
-import createApiCliet from './api.service';
+import createApiClient from './api.service';
 
 class reservationService {
     constructor(baseUrl = '/api/myapp/reservation') {
-        this.api = createApiCliet(baseUrl);
+        this.api = createApiClient(baseUrl);
     }
 
     async createReservation(data) {
         return (await this.api.post("/", data)).data;
+    }
+
+    async getReservationByUserID(userID) {
+        return (await this.api.get(`/user/${userID}`)).data;
+    }
+
+    async getReservationByID(reserID) {
+        return (await this.api.get(`/${reserID}`)).data;
+    }
+
+    async addorremoveFood(data) {
+        return (await this.api.put("/food/", data)).data;
     }
 }
 

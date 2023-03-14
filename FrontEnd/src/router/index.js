@@ -5,17 +5,13 @@ import Login from '../views/login.vue';
 import Register from '../views/register.vue';
 import Profile from '../views/profile.vue';
 import OverviewTable from '../views/overviewTables.vue';
+import MenuPage from '../views/menu.vue';
 
 const routes = [
     {
         path: "/",
         name: "Home",
         component: Home,
-    },
-    {
-        path: "/table",
-        name: "OverviewTable",
-        component: OverviewTable,
     },
     {
         path: "/user/signin",
@@ -33,6 +29,16 @@ const routes = [
         name: "Profile",
         component: Profile,
         props: true
+    },
+    {
+        path: "/table",
+        name: "OverviewTable",
+        component: OverviewTable,
+    },
+    {
+        path: "/menu/",
+        name: "MenuPage",
+        component: MenuPage
     },
 ];
 const router = createRouter({
