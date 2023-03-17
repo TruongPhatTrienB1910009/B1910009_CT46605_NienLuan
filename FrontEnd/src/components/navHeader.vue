@@ -1,6 +1,8 @@
 <template>
     <header>
-        <div id="logo"><img class="seafood" src="../assets/images/img.png" alt=""></div>
+        <div id="logo"><img class="seafood"
+                src="https://cdn1.vectorstock.com/i/1000x1000/42/30/steak-house-logo-with-bull-head-vector-40224230.jpg"
+                alt=""></div>
         <nav id="navBar">
             <div v-if="authStore.isLogin" class="navUser">
                 <div class="navUser__divLink">
@@ -12,6 +14,11 @@
                 </div>
             </div>
             <ul v-else>
+                <li>
+                </li>
+                <li v-if="authStore.role === 'admin'" class="">
+                    <router-link :to='{ name: "Admin" }' class="router-link">Trang Chủ</router-link>
+                </li>
                 <li class="">
                     <router-link :to='{ name: "Home" }' class="router-link">Trang Chủ</router-link>
                 </li>
@@ -28,9 +35,15 @@
 
 <script>
 import { useAuthStore } from '../stores/auth';
+import { onBeforeMount } from 'vue';
 export default {
     setup() {
         const authStore = useAuthStore();
+
+        onBeforeMount(() => {
+            authStore.checkUser();
+        });
+
         return {
             authStore
         }
@@ -74,6 +87,7 @@ header {
 .navUser .navUser__divLink .router-link,
 #navBar ul li .router-link {
     font-size: 16px;
+    font-weight: 600;
     padding: 20px;
     color: #ffffff;
     display: block;

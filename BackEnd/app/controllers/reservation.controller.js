@@ -13,7 +13,7 @@ exports.createReser = async (req, res, next) => {
         seat: data.seat
     });
     reservation.table.push(data.tableID);
-    reservation.user.push(data.userID);
+    reservation.user = data.userID;
     await reservation.save();
 
     const user = await User.findById(data.userID);
@@ -28,8 +28,9 @@ exports.createReser = async (req, res, next) => {
 }
 
 exports.getAllReservationsByUserID = async (req, res, next) => {
-    const reservations = await Reservation.find({ userID: req.params.userID }).populate('table').populate('user').populate('foods');
-    console.log(reservations);
+    console.log(req.params.userID)
+    const reservations = await Reservation.find({ user: req.params.userID }).populate('table').populate('user').populate('foods');
+    console.log(reservations)
     return res.send(reservations);
 }
 

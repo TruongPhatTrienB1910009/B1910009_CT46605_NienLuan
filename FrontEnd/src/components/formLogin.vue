@@ -1,44 +1,50 @@
 <template>
-    <div class="mainContain container">
-        <div class="contain" :class="{ 'containRegister': url === 'register' }">
-            <div class="divform">
-                <h1 v-if="url !== 'register'">ĐĂNG NHẬP</h1>
-                <h1 v-else>ĐĂNG KÝ</h1>
-                <hr>
-                <form @submit.prevent="getUser">
-                    <div class="divContain">
-                        <i class="fa-solid fa-envelope"></i>
-                        <input type="emai" placeholder="Nhập vào email của bạn" v-model="user.email">
+    <div class="Conatain">
+        <div class="divForm">
+            <Form :validation-schema="loginFormSchema">
+                <div class="div-input" :class="[(url != 'register') ? 'div-input-login' : '']">
+                    <div class="divField">
+                        <Field name="email" placeholder="Email" type="text" v-model="user.email" />
+                        <ErrorMessage name="email" class="error-feedback" />
                     </div>
-                    <div class="divContain">
-                        <i class="fa-solid fa-lock"></i>
-                        <input type="password" placeholder="Nhập mật khẩu" v-model="user.password">
+                    <div class="divField">
+                        <Field name="password" placeholder="Mật khẩu" type="password" v-model="user.password" />
+                        <ErrorMessage name="password" class="error-feedback" />
                     </div>
-                    <div v-if="url === 'register'" class="divContain">
-                        <i class="fa-solid fa-lock"></i>
-                        <input type="password" placeholder="Xác nhận mật khẩu" v-model="user.confirm">
+                    <div class="divField" v-if="url == 'register'">
+                        <Field name="confirm" placeholder="Xác nhận lại mật khẩu" type="password" v-model="user.confirm" />
+                        <ErrorMessage name="confirm" class="error-feedback" />
                     </div>
-                    <p v-if="url !== 'register'">Bạn chưa có mật khẩu <router-link :to="{ name: 'Register' }">Đăng
-                            ký</router-link>
-                    </p>
-                    <p v-else>Bạn đã có mật khẩu <router-link :to="{ name: 'Login' }">Đăng
-                            nhập</router-link>
-                    </p>
-                    <button v-if="url !== 'register'" class="btnCss" type="submit">ĐĂNG NHẬP</button>
-                    <button v-else class="btnCss" type="submit">ĐĂNG KÝ</button>
-                </form>
-            </div>
+                </div>
+                <div v-if="url == 'register'" class="div-button">
+                    <p>Bạn đã có mật khẩu. <router-link :to='{ name: "Login" }'>Đăng nhập ngay?</router-link></p>
+                    <button @click="getUser" type="submit">ĐĂNG KÝ</button>
+                </div>
+                <div v-else class="div-button">
+                    <p>Bạn chưa có mật khẩu. <router-link :to='{ name: "Register" }'>Đăng ký ngay?</router-link></p>
+                    <button @click="getUser" type="submit">ĐĂNG NHẬP</button>
+                </div>
+            </Form>
         </div>
     </div>
 </template>
 
 <script>
 import { reactive } from 'vue';
-import { useRouter } from 'vue-router';
+import { Field, Form, ErrorMessage } from 'vee-validate';
+import * as yup from 'yup';
 export default {
     emits: ['submit:user'],
     props: ['url'],
+    components: { Field, Form, ErrorMessage },
     setup(props, ctx) {
+
+        const loginFormSchema = yup.object().shape({
+            email: yup.string().required("Email không được để trống").email("Email không đúng"),
+            password: yup.string().required("Mật khẩu không được để trống").min(6, "Mật khẩu tối thiểu là 6 ký tự"),
+            confirm: yup.string().required("Vui lòng xác nhận mật khẩu").min(6, "Mật khẩu tối thiểu là 6 ký tự")
+        });
+
         const user = reactive({
             email: '',
             password: '',
@@ -50,70 +56,79 @@ export default {
             ctx.emit('submit:user', user);
         }
 
-        return { user, getUser, url }
+        return { user, getUser, url, loginFormSchema }
     }
 }
 </script>
 
 <style scoped>
-.contain {
-    margin-top: 160px;
-    margin-bottom: 140px;
-    height: 400px;
-    width: 480px;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: aqua;
-    border-radius: 10px;
-    padding: 20px;
+.Conatain {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(https://popmenucloud.com/gjlhrpie/1d984609-c1c1-461a-9fdb-8587ee72aa32);
 }
 
-.containRegister {
-    margin-top: 130px;
-    height: 460px;
-    margin-bottom: 110px;
-}
-
-.divform h1 {
-    text-align: center;
-    padding-top: 10px;
-    font-weight: 700;
+.divForm {
+    width: 540px;
+    min-height: 380px;
+    margin-top: 80px;
+    background-color: black;
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
 }
 
 form {
+    min-height: 320px;
+    width: 80%;
+    color: white;
+}
+
+form input {
+    width: 100%;
+    line-height: 45px;
+    font-size: 20px;
+    padding: 0 5px;
+    margin-bottom: 5px;
+    background-color: transparent;
+    color: white;
+    border: 2px solid brown;
+}
+
+.divField {
+    margin-bottom: 25px;
+}
+
+.div-button p {
     text-align: center;
 }
 
-.divContain {
-    line-height: 30px;
-    margin: 25px auto;
-    text-align: center;
-    background-color: #fff;
-    border-radius: 10px;
-    width: 360px;
+.div-button button {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    background-color: transparent;
+    border: 2px solid brown;
 }
 
-.divContain i {
-    color: aqua;
+.div-button button:hover {
+    background-color: brown;
 }
 
-
-.divContain input {
-    width: 320px;
-    border: none;
-    border-radius: 10px;
-    padding: 5px;
-    margin: 5px 0;
+.div-input-login {
+    margin-top: 30px !important;
 }
 
-input:focus {
-    outline: none;
-}
-
-.btnCss {
-    width: 260px;
-    height: 50px;
-    border-radius: 50px;
-    border: 0;
+.error-feedback {
+    color: white;
+    font-size: 16px;
+    margin: 10px 0;
 }
 </style>

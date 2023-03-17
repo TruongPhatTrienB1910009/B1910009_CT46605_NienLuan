@@ -2,7 +2,8 @@
     <div class="Booking__table">
         <div class="booking__table-info">
             <form>
-                <h3>DANH SÁCH BÀN TRỐNG</h3>
+                <h3 v-if="authStore.isLogin">DANH SÁCH BÀN TRỐNG</h3>
+                <h4 class="mt-2" v-else>VUI LÒNG ĐĂNG NHẬP TRƯỚC KHI ĐẶT BÀN</h4>
                 <table class="table">
                     <tbody>
                         <tr>
@@ -62,7 +63,8 @@
                                     <div>SỐ CHỖ NGỒI: {{ table.seat }}</div>
                                     <div v-if="table.place === 'outside'">VỊ TRÍ: OUTSIDE</div>
                                     <div v-else>VỊ TRÍ: INSIDE</div>
-                                    <button class="btn btn-info" id="show-modal" @click="showModalBooking(index)">ĐẶT
+                                    <button v-if="authStore.isLogin" class="btn btn-info" id="show-modal"
+                                        @click="showModalBooking(index)">ĐẶT
                                         BÀN</button>
                                 </div>
                                 <transition name="modal">
@@ -90,6 +92,7 @@ export default {
         const filter = ref([]);
         const Tables = ref([]);
         const loading = ref(false);
+        const authStore = useAuthStore();
         const temp = reactive({
             table: null,
             dateBooking: new Date(Date.now()).toISOString().slice(0, 10)
@@ -181,7 +184,7 @@ export default {
 
 
         return {
-            initTable, filter, showModal, showModalBooking, closeModal, getfilterTable, getreset, loading, temp
+            initTable, filter, showModal, showModalBooking, closeModal, getfilterTable, getreset, loading, temp, authStore
         }
     }
 }

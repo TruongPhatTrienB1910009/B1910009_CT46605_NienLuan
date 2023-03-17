@@ -18,12 +18,10 @@ const reserSchema = new Schema({
     seat: {
         type: Number
     },
-    user: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'User'
-        }
-    ],
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
     table: [
         {
             type: Schema.Types.ObjectId,

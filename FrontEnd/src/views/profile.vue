@@ -4,7 +4,7 @@
             <div class="left">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvts5aHBstDkR8PigS4RmZkbZy78zpZoSuOw&usqp=CAU"
                     alt="">
-                <button class="btn btn-info">ĐĂNG XUẤT</button>
+                <button @click="logout" class="btn btn-info">ĐĂNG XUẤT</button>
             </div>
             <div class="right">
                 <div class="info">
@@ -85,7 +85,7 @@
 import profileCard from '../components/profileCard.vue';
 import userService from '../services/user.service';
 import { useAuthStore } from '../stores/auth';
-import { reactive, onBeforeMount, ref } from 'vue';
+import { reactive, onBeforeMount, ref, onMounted } from 'vue';
 import { Collapse } from 'vue-collapsed';
 import reservationService from '../services/reservation.service';
 import { useRouter } from 'vue-router';
@@ -100,11 +100,13 @@ export default {
         async function logout() {
             await userService.logOut();
             authStore.logOut();
+            router.push({ name: 'Home' })
         }
 
         async function GetRser() {
-            document.user = await userService.getUser(authStore.userID);
-            reservations.value = await reservationService.getReservationByUserID(authStore.userID);
+            document.user = await userService.getUser(localStorage.getItem('userID'));
+            reservations.value = await reservationService.getReservationByUserID(localStorage.getItem('userID'));
+            console.log(reservations.value);
             reservations.value.forEach((reser) => {
                 reser["isExpanded"] = false;
             })
@@ -112,7 +114,7 @@ export default {
 
         async function removeFood(data) {
             await reservationService.addorremoveFood(data);
-            reservations.value = await reservationService.getReservationByUserID(authStore.userID);
+            reservations.value = await reservationService.getReservationByUserID(localStorage.getItem('userID'));
             reservations.value.forEach((reser, index) => {
                 reser["isExpanded"] = false;
                 if (reservations.value[index]._id == data.reserID) {
@@ -132,6 +134,9 @@ export default {
         }
 
         onBeforeMount(() => {
+            if (!authStore.isLogin) {
+                router.push({ name: 'Home' })
+            }
             GetRser();
         })
 

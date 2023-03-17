@@ -20,6 +20,7 @@ export default {
                 email: userData.email,
                 password: userData.password
             }
+            console.log(user);
             try {
                 const res = await userService.signIn(user);
                 authStore.setUser(res._id);

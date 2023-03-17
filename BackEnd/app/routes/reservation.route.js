@@ -11,7 +11,7 @@ router.route('/:reserID')
 router.route('/food/')
     .put(reservationController.addFood)
 
-router.route('/user/:userId')
+router.route('/user/:userID')
     .get(reservationController.getAllReservationsByUserID)
 
 module.exports = router;

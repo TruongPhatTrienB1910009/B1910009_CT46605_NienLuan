@@ -15,21 +15,26 @@
                                 <div class="card-body">
                                     <h4 class="card-title">{{ slide.name }}</h4>
                                     <p class="card-text">{{ VND.format(slide.price) }}</p>
-                                    <div v-if="!slide.added">
-                                        <button v-if="reserID !== undefined" @click="addFood(slide._id)"
-                                            class="btn btn-danger">ĐẶT MÓN</button>
-                                        <p v-else>Vui lòng chọn bàn ăn của bạn ở trang
-                                            <RouterLink :to='{ name: "Profile" }'>profile</RouterLink>
-                                            trước khi đặt món
-                                        </p>
+                                    <div v-if="authStore.isLogin">
+                                        <div v-if="!slide.added">
+                                            <button v-if="reserID !== undefined" @click="addFood(slide._id)"
+                                                class="btn btn-danger">ĐẶT MÓN</button>
+                                            <p v-else>Vui lòng chọn bàn ăn của bạn ở trang
+                                                <RouterLink :to='{ name: "Profile" }'>profile</RouterLink>
+                                                trước khi đặt món
+                                            </p>
+                                        </div>
+                                        <div v-else>
+                                            <button disabled v-if="reserID !== undefined" class="btn btn-info">ĐÃ
+                                                ĐẶT...</button>
+                                            <p v-else>Vui lòng chọn bàn ăn của bạn ở trang
+                                                <RouterLink :to='{ name: "Profile" }'>profile</RouterLink>
+                                                trước khi đặt món
+                                            </p>
+                                        </div>
                                     </div>
                                     <div v-else>
-                                        <button disabled v-if="reserID !== undefined" class="btn btn-info">ĐÃ
-                                            ĐẶT...</button>
-                                        <p v-else>Vui lòng chọn bàn ăn của bạn ở trang
-                                            <RouterLink :to='{ name: "Profile" }'>profile</RouterLink>
-                                            trước khi đặt món
-                                        </p>
+                                        <p>Bạn phải đặt bàn trước khi thêm món ăn</p>
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +55,8 @@ import { Carousel, Navigation, Slide } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css';
 import foodService from '../services/food.service';
 import reservationService from '../services/reservation.service';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
+import { useAuthStore } from '../stores/auth';
 export default defineComponent({
     components: {
         Carousel,
@@ -64,20 +70,23 @@ export default defineComponent({
         const route = useRoute();
         const reserID = ref(route.query.ReserID);
         const reserFoods = ref([]);
+        const authStore = useAuthStore();
 
         async function filterFoods() {
-            reserFoods.value = (await reservationService.getReservationByID(reserID.value)).foods;
-            if (reserFoods.value.length > 0) {
-                foods.value.forEach((food) => {
-                    reserFoods.value.forEach((rfood) => {
-                        if (food._id == rfood._id) {
-                            food.added = true;
+            if (reserID.value !== undefined) {
+                reserFoods.value = (await reservationService.getReservationByID(reserID.value)).foods;
+                if (reserFoods.value.length > 0) {
+                    foods.value.forEach((food) => {
+                        reserFoods.value.forEach((rfood) => {
+                            if (food._id == rfood._id) {
+                                food.added = true;
+                            }
+                        })
+                        if (food.added == undefined) {
+                            food.added = false;
                         }
                     })
-                    if (food.added == undefined) {
-                        food.added = false;
-                    }
-                })
+                }
             }
         }
 
@@ -110,7 +119,7 @@ export default defineComponent({
             getFoods();
             filterFoods();
         })
-        return { time, foods, getImageUrl, VND, reserID, addFood }
+        return { time, foods, getImageUrl, VND, reserID, addFood, authStore }
     }
 })
 </script>

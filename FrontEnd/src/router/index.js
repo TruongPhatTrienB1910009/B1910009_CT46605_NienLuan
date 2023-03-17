@@ -6,7 +6,7 @@ import Register from '../views/register.vue';
 import Profile from '../views/profile.vue';
 import OverviewTable from '../views/overviewTables.vue';
 import MenuPage from '../views/menu.vue';
-
+import AdminPage from '../views/adminPage.vue';
 const routes = [
     {
         path: "/",
@@ -40,6 +40,11 @@ const routes = [
         name: "MenuPage",
         component: MenuPage
     },
+    {
+        path: "/admin/",
+        name: "Admin",
+        component: AdminPage
+    }
 ];
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),

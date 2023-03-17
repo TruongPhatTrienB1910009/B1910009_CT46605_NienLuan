@@ -1,5 +1,4 @@
 const User = require('../models/User');
-const Table = require('../models/Table');
 
 const config = require('../config/index');
 const JWT = require('jsonwebtoken');
