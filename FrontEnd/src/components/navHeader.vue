@@ -5,6 +5,9 @@
                 alt=""></div>
         <nav id="navBar">
             <div v-if="authStore.isLogin" class="navUser">
+                <div v-if="authStore.role === 'admin'" class="navUser__divLink">
+                    <router-link :to='{ name: "Admin" }' class="router-link">THỐNG KÊ</router-link>
+                </div>
                 <div class="navUser__divLink">
                     <router-link :to='{ name: "Home" }' class="router-link">Trang Chủ</router-link>
                 </div>
@@ -14,11 +17,6 @@
                 </div>
             </div>
             <ul v-else>
-                <li>
-                </li>
-                <li v-if="authStore.role === 'admin'" class="">
-                    <router-link :to='{ name: "Admin" }' class="router-link">Trang Chủ</router-link>
-                </li>
                 <li class="">
                     <router-link :to='{ name: "Home" }' class="router-link">Trang Chủ</router-link>
                 </li>

@@ -23,13 +23,14 @@ export default {
             try {
                 const res = await userService.register(user);
                 authStore.setUser(res._id);
-                router.push({ name: 'Home' });
+                console.log(user);
+                router.push({ name: 'Home' });.
             } catch (err) {
-                console.log(err.response.data.message);
-            }
+    console.log(err.response.data.message);
+}
         }
 
-        return { register, url }
+return { register, url }
     }
 }
 </script>

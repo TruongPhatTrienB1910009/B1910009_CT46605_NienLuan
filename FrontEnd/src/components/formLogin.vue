@@ -18,11 +18,11 @@
                 </div>
                 <div v-if="url == 'register'" class="div-button">
                     <p>Bạn đã có mật khẩu. <router-link :to='{ name: "Login" }'>Đăng nhập ngay?</router-link></p>
-                    <button @click="getUser" type="submit">ĐĂNG KÝ</button>
+                    <button @click.prevent="getUser" type="submit">ĐĂNG KÝ</button>
                 </div>
                 <div v-else class="div-button">
                     <p>Bạn chưa có mật khẩu. <router-link :to='{ name: "Register" }'>Đăng ký ngay?</router-link></p>
-                    <button @click="getUser" type="submit">ĐĂNG NHẬP</button>
+                    <button @click.prevent="getUser" type="submit">ĐĂNG NHẬP</button>
                 </div>
             </Form>
         </div>
