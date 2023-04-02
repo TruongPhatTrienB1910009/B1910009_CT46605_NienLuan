@@ -42,7 +42,6 @@ export const useAuthStore = defineStore('authStore', {
             if (this.role === 'admin') {
                 this.router.push({ name: 'Admin' })
             }
-            console.log(this.role)
 
         },
 

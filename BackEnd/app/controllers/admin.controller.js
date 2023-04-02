@@ -8,14 +8,19 @@ exports.statisticalRecent = async (req, res, next) => {
         times: []
     }
     const reservations = await Reservation.find({});
-    for (let i = 6; i >= 0; i--) {
-        filter.categories.push(moment().subtract(i, 'days').format().slice(0, 10));
+    for (let i = 0; i <= moment().month(); i++) {
+        if (i < 10) {
+            filter.categories.push(`0${i + 1}`);
+        } else {
+            filter.categories.push(i + 1);
+        }
     }
 
-    filter.categories.forEach((day) => {
+    filter.categories.forEach((month) => {
         let count = 0;
         reservations.forEach(reservation => {
-            if (reservation.dateBooking == day) {
+            let date = reservation.dateBooking.slice(reservation.dateBooking.indexOf('-') + 1, reservation.dateBooking.lastIndexOf('-'));
+            if (date == month) {
                 count++;
             }
         })
@@ -25,15 +30,7 @@ exports.statisticalRecent = async (req, res, next) => {
     const tables = await Table.find({}).populate("reservations");
 
     tables.forEach(table => {
-        let count = 0;
-        table.reservations.forEach(reservation => {
-            for (let i = 6; i >= 0; i--) {
-                if (reservation.dateBooking == moment().subtract(i, 'days').format().slice(0, 10)) {
-                    count++;
-                }
-            }
-        })
-        filter.times.push(count);
+        filter.times.push(table.reservations.length);
     })
 
 

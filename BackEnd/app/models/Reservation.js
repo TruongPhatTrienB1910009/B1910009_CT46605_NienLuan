@@ -18,6 +18,9 @@ const reserSchema = new Schema({
     seat: {
         type: Number
     },
+    acepted: {
+        default: false
+    },
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User'

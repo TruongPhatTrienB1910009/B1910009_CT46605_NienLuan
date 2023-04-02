@@ -12,11 +12,11 @@
                     <div class="info__data">
                         <div class="data">
                             <h4>Email</h4>
-                            <p>hi@gmail.com</p>
+                            <p>{{ document.user.email }}</p>
                         </div>
                         <div class="data">
-                            <h4>Phone</h4>
-                            <p>0787899778</p>
+                            <h4>Số bàn đặt</h4>
+                            <p>{{ document.user.reservations.length }}</p>
                         </div>
                     </div>
                 </div>
@@ -26,7 +26,8 @@
                     <n-scrollbar style="max-height: 270px">
                         <div v-for="reser, index in reservations" :key="index" class="cardReser">
                             <div class="title" @click="handleAccordion(index)">
-                                <h4>Ngày nhận bàn: {{ reser.dateBooking }}</h4>
+                                <span :style="{ fontWeight: 700 }">NGÀY NHẬN BÀN {{ reser.dateBooking }}</span>
+                                <span :style="{ fontWeight: 700 }">ĐÃ XÁC NHẬN</span>
                             </div>
                             <Collapse :when="reser.isExpanded" class="v-collapse">
                                 <div class="cardReser-group row">
@@ -59,7 +60,7 @@
                                         <p>{{ reser.timeBooking }}</p>
                                     </div>
                                 </div>
-                                <div>
+                                <div class="foods">
                                     <h4>Các món đặt trước</h4>
                                     <div v-for="food, fIndex in reser.foods" :key="fIndex">
                                         <div class="row m-3">
@@ -72,6 +73,7 @@
                                     </div>
                                     <button @click="gotoMenu(reser._id)" class="btn btn-info">Thêm món ăn</button>
                                 </div>
+
                             </Collapse>
                         </div>
                     </n-scrollbar>
@@ -150,16 +152,31 @@ export default {
 <style scoped>
 .cardReser {
     border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.cardReser>* {
+    margin-left: 20px;
+}
+
+.cardReser-group,
+.foods {
+    margin-left: 10px;
+    padding-bottom: 10px;
+}
+
+.foods h4 {
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 500;
 }
 
 
 .title {
     padding: 10px 0;
     color: rgb(232, 93, 93);
-}
-
-.title h4 {
-    margin: 0;
+    display: flex;
+    justify-content: space-between;
 }
 
 .v-collapse {

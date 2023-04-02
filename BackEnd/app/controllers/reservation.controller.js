@@ -1,6 +1,7 @@
 const Reservation = require('../models/Reservation');
 const User = require('../models/User');
 const Table = require('../models/Table');
+
 exports.createReser = async (req, res, next) => {
     const data = req.body;
     console.log(data);
@@ -59,4 +60,41 @@ exports.getByID = async (req, res, next) => {
     const resers = await Reservation.findById(reserID).populate('foods');
     console.log(resers);
     return res.send(resers);
+}
+
+exports.getAll = async (req, res, next) => {
+    const resers = await Reservation.find({}).populate('user').populate('foods').populate('table');
+    return res.send(resers);
+}
+
+exports.deleteReser = async (req, res, next) => {
+    try {
+        const reser = await Reservation.findOne({ _id: req.params.reserID });
+        const userID = reser.user;
+        const tableID = reser.table[0];
+        const table = await Table.findOne({ _id: tableID });
+        const user = await User.findOne({ _id: userID });
+        table.reservations.filter((reser) => {
+            return reser !== req.params.reserID;
+        })
+        user.reservations.filter((user) => {
+            return user !== userID;
+        })
+        await user.save();
+        await table.save();
+        await Reservation.deleteOne({ _id: req.params.reserID });
+        return res.send("success");
+    } catch (error) {
+        res.send(error.message);
+    }
+}
+
+exports.aceptReser = async (req, res) => {
+    try {
+        const reser = await Reservation.findById(req.params.reserID);
+        reser.acepted = true;
+        await reser.save();
+    } catch (err) {
+        console.error(err.message);
+    }
 }

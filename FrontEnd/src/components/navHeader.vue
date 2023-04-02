@@ -1,19 +1,28 @@
 <template>
     <header>
         <div id="logo"><img class="seafood"
-                src="https://cdn1.vectorstock.com/i/1000x1000/42/30/steak-house-logo-with-bull-head-vector-40224230.jpg"
-                alt=""></div>
+                src="https://www.hoteljob.vn/uploads/images/2021/12/09-10/logoc%C3%A1cbrand_Ussina.png" alt=""></div>
         <nav id="navBar">
-            <div v-if="authStore.isLogin" class="navUser">
-                <div v-if="authStore.role === 'admin'" class="navUser__divLink">
-                    <router-link :to='{ name: "Admin" }' class="router-link">THỐNG KÊ</router-link>
+            <div v-if="authStore.isLogin">
+                <div class="navUser" v-if="authStore.role === 'admin'">
+                    <div class="navUser__divLink">
+                        <router-link :to='{ name: "Admin" }' class="router-link">THỐNG KÊ</router-link>
+                    </div>
+                    <div v-if="authStore.role === 'admin'" class="navUser__divLink">
+                        <router-link :to='{ name: "Admin" }' class="router-link">MÓN ĂN</router-link>
+                    </div>
+                    <div v-if="authStore.role === 'admin'" class="navUser__divLink">
+                        <router-link :to='{ name: "Admin" }' class="router-link">BÀN ĂN</router-link>
+                    </div>
                 </div>
-                <div class="navUser__divLink">
-                    <router-link :to='{ name: "Home" }' class="router-link">Trang Chủ</router-link>
-                </div>
-                <div class="navUser__divLink">
-                    <router-link :to='{ name: "Profile" }' class="navUser__divLink--router-link"><i
-                            class="fa-solid fa-user"></i></router-link>
+                <div class="navUser" v-else>
+                    <div class="navUser__divLink">
+                        <router-link :to='{ name: "Home" }' class="router-link">Trang Chủ</router-link>
+                    </div>
+                    <div class="navUser__divLink">
+                        <router-link :to='{ name: "Profile" }' class="navUser__divLink--router-link"><i
+                                class="fa-solid fa-user"></i></router-link>
+                    </div>
                 </div>
             </div>
             <ul v-else>
@@ -38,9 +47,9 @@ export default {
     setup() {
         const authStore = useAuthStore();
 
-        onBeforeMount(() => {
-            authStore.checkUser();
-        });
+        // onBeforeMount(() => {
+        //     authStore.checkUser();
+        // });
 
         return {
             authStore

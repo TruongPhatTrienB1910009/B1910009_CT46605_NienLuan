@@ -4,14 +4,17 @@
             <slideShow />
         </div>
         <div id="contain__content">
-            <h2>Giới thiệu về nhà hàng TPT</h2>
+            <h2>Giới thiệu về nhà hàng STEAK HOUSE</h2>
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-6 contain-img-first"></div>
+                    <div class="col-sm-6 contain-img p-0">
+                        <img src="https://ussinavietnam.vn/wp-content/uploads/2019/11/Ussina_2-2.jpg" alt="">
+                    </div>
                     <div class="wrapper col-sm-6">
                         <div class="contain-img-second">
-                            <h3>USSINA – Aging Beef & Bar</h3>
-                            <p>USSINA nổi tiếng là một thương hiệu ẩm thực cao cấp đến từ xứ sở Hoa Anh Đào, với rất nhiều
+                            <h3>STEAK HOUSE – Aging Beef & Bar</h3>
+                            <p>STEAK HOUSE nổi tiếng là một thương hiệu ẩm thực cao cấp đến từ xứ sở Hoa Anh Đào, với rất
+                                nhiều
                                 nhà hàng tại vùng Nagoya – Nhật Bản.</p>
 
                             <p>Đến với nhà hàng chúng tôi, quý khách sẽ được trải nghiệm một phong cách ẩm thực hoàn toàn
@@ -22,8 +25,10 @@
                                 được chế biến một cách tinh tế và đặc sắc, để từng thớ thịt mềm tan và dậy lên hương vị làm
                                 hài lòng ngay cả những thực khách khó tính nhất.</p>
 
-                            <p>Mỗi nhà hàng, mỗi địa điểm của USSINA đều mang lại những cảm nhận và những trải nghiệm khác
-                                nhau,từ không khí ấm cúng gần gũi của USSINA Thảo Điền cho đến không gian sang trọng tinh tế
+                            <p>Mỗi nhà hàng, mỗi địa điểm của STEAK HOUSE đều mang lại những cảm nhận và những trải nghiệm
+                                khác
+                                nhau,từ không khí ấm cúng gần gũi của STEAK HOUSE Thảo Điền cho đến không gian sang trọng
+                                tinh tế
                                 tại lầu 77 của toà nhà cao nhất Việt Nam.</p>
                         </div>
                     </div>
@@ -31,34 +36,24 @@
                 <div class="row">
                     <div class="wrapper col-sm-6">
                         <div class="contain-img-second">
-                            <h3>USSINA – Aging Beef & Bar</h3>
-                            <p>USSINA nổi tiếng là một thương hiệu ẩm thực cao cấp đến từ xứ sở Hoa Anh Đào, với rất nhiều
-                                nhà hàng tại vùng Nagoya – Nhật Bản.</p>
+                            <h3>NIKU BARU: Kết hợp tinh tế giữa phong cách ẩm thực châu Âu và Nhật Bản.</h3>
+                            <p>Trong những năm gần đây, NIKU BARU là phong cách ẩm thực mới đang được ưa chuộng và bùng nổ
+                                tại Nhật Bản. Biến tấu từ phong cách “Meat Bar” châu Âu gần gũi, ấm cúng trở nên vô cùng
+                                tinh tế qua bàn tay chế biến điêu luyện của các đầu bếp Nhật Bản đã làm say lòng bao tín đồ
+                                ẩm thực xứ sở hoa Anh Đào. Điểm nổi bật của phong cách ẩm thực này là bạn có thể thưởng thức
+                                thực đơn phong phú đa dạng từ nguyên liệu thịt bò thượng hạng, cùng với các loại đồ uống
+                                thơm nồng đặc biệt được tinh chế thủ công một cách tỷ mỉ nhất.</p>
 
-                            <p>Đến với nhà hàng chúng tôi, quý khách sẽ được trải nghiệm một phong cách ẩm thực hoàn toàn
-                                mới
-                                lạ,
-                                với các món ăn từ thịt bò Wagyu thượng hạng được sử dụng kĩ thuật ủ lạnh trong tuyết lưu
-                                truyền
-                                hơn
-                                200 năm, chỉ có duy nhất ở nhà hàng chúng tôi tại Việt Nam.</p>
+                            <p>Hãy lên ngay kế hoạch buổi hẹn hò với những người bạn yêu thương nhất tại USSINA nhé!</p>
 
-                            <p>Qua bàn tay điêu luyện của các đầu bếp bậc thầy Nhật Bản, nguyên liệu “ Snow Aging Wagyu”
-                                được
-                                chế
-                                biến một cách tinh tế và đặc sắc, để từng thớ thịt mềm tan và dậy lên hương vị làm hài lòng
-                                ngay
-                                cả
-                                những thực khách khó tính nhất.</p>
+                            <p>USSINA – Nơi tụ họp những niềm vui !</p>
 
-                            <p>Mỗi nhà hàng, mỗi địa điểm của USSINA đều mang lại những cảm nhận và những trải nghiệm khác
-                                nhau,
-                                từ không khí ấm cúng gần gũi của USSINA Thảo Điền cho đến không gian sang trọng tinh tế tại
-                                lầu
-                                77của toà nhà cao nhất Việt Nam.</p>
+
                         </div>
                     </div>
-                    <div class="col-sm-6 contain-img-first"></div>
+                    <div class="col-sm-6 contain-img p-0">
+                        <img src="https://ussinavietnam.vn/wp-content/uploads/2019/11/h%C3%ACnh-1.jpg" alt="">
+                    </div>
                 </div>
             </div>
         </div>
@@ -115,11 +110,9 @@ h2 {
     text-transform: uppercase;
 }
 
-.contain-img-first {
-    background-image: url(https://ussinavietnam.vn/wp-content/uploads/2019/11/Ussina_2-2.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+.contain-img img {
+    width: 100%;
+    margin: 0;
 }
 
 .wrapper {
