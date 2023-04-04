@@ -8,6 +8,11 @@ class foodService {
     async getAllFood() {
         return (await this.api.get('/')).data;
     }
+
+    async createFood(data) {
+        console.log(data);
+        return (await this.api.post('/', data, { headers: { "Content-Type": "multipart/form-data" } })).data;
+    }
 }
 
 export default new foodService();

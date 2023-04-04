@@ -11,8 +11,6 @@ const reservationRoute = require('./app/routes/reservation.route')
 const foodRoute = require('./app/routes/food.route')
 const adminRoute = require('./app/routes/admin.route')
 
-
-
 // middleware
 app.use(cors());
 app.use(express.json());

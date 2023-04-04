@@ -9,10 +9,14 @@
                         <router-link :to='{ name: "Admin" }' class="router-link">THỐNG KÊ</router-link>
                     </div>
                     <div v-if="authStore.role === 'admin'" class="navUser__divLink">
-                        <router-link :to='{ name: "Admin" }' class="router-link">MÓN ĂN</router-link>
+                        <router-link :to='{ name: "AdminOverviewFood" }' class="router-link">MÓN ĂN</router-link>
                     </div>
                     <div v-if="authStore.role === 'admin'" class="navUser__divLink">
                         <router-link :to='{ name: "Admin" }' class="router-link">BÀN ĂN</router-link>
+                    </div>
+                    <div class="navUser__divLink">
+                        <router-link :to='{ name: "Profile" }' class="navUser__divLink--router-link"><i
+                                class="fa-solid fa-user"></i></router-link>
                     </div>
                 </div>
                 <div class="navUser" v-else>
@@ -46,11 +50,6 @@ import { onBeforeMount } from 'vue';
 export default {
     setup() {
         const authStore = useAuthStore();
-
-        // onBeforeMount(() => {
-        //     authStore.checkUser();
-        // });
-
         return {
             authStore
         }

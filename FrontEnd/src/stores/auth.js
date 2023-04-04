@@ -41,6 +41,8 @@ export const useAuthStore = defineStore('authStore', {
 
             if (this.role === 'admin') {
                 this.router.push({ name: 'Admin' })
+            } else {
+                this.role = 'guest';
             }
 
         },
@@ -48,6 +50,7 @@ export const useAuthStore = defineStore('authStore', {
         logOut() {
             this.isLogin = false;
             this.userID = '';
+            this.role = 'guest';
             localStorage.removeItem('userID');
         }
     }

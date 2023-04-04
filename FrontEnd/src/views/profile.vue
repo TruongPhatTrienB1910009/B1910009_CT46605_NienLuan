@@ -16,7 +16,7 @@
                         </div>
                         <div class="data">
                             <h4>Số bàn đặt</h4>
-                            <p>{{ document.user.reservations.length }}</p>
+                            <!-- <p>{{ document.user.reservations.length }}</p> -->
                         </div>
                     </div>
                 </div>
@@ -27,7 +27,8 @@
                         <div v-for="reser, index in reservations" :key="index" class="cardReser">
                             <div class="title" @click="handleAccordion(index)">
                                 <span :style="{ fontWeight: 700 }">NGÀY NHẬN BÀN {{ reser.dateBooking }}</span>
-                                <span :style="{ fontWeight: 700 }">ĐÃ XÁC NHẬN</span>
+                                <span v-if="reser.acepted" :style="{ fontWeight: 700 }">ĐÃ XÁC NHẬN</span>
+                                <span v-else :style="{ fontWeight: 700 }">CHƯA XÁC NHẬN</span>
                             </div>
                             <Collapse :when="reser.isExpanded" class="v-collapse">
                                 <div class="cardReser-group row">
@@ -66,12 +67,19 @@
                                         <div class="row m-3">
                                             <p class="col-sm-4">{{ food.name }}</p>
                                             <p class="col-sm-4">{{ food.price }}</p>
-                                            <p class="col-sm-4"><button @click="removeFood({
+                                            <p class="col-sm-4"><button v-if="!reser.acepted" @click="removeFood({
                                                 reserID: reser._id, foodID: food._id, action: 'remove'
                                             })" class="btn btn-danger">Xóa</button></p>
                                         </div>
                                     </div>
-                                    <button @click="gotoMenu(reser._id)" class="btn btn-info">Thêm món ăn</button>
+                                    <div v-if="!reser.acepted">
+                                        <button @click="gotoMenu(reser._id)" class="btn btn-info">Thêm
+                                            món
+                                            ăn</button>
+                                        <button @click="deleteReservation(reser._id)" class="btn btn-danger ml-2">Hủy
+                                            Lịch</button>
+                                    </div>
+                                    <h4 v-else>Hóa đơn đã được xác nhận</h4>
                                 </div>
 
                             </Collapse>
@@ -135,15 +143,28 @@ export default {
             router.push({ name: 'MenuPage', query: { ReserID: ID } })
         }
 
+        async function deleteReservation(id) {
+            try {
+                let text = "Bạn muốn hủy đặt bàn này?.";
+                if (confirm(text)) {
+                    alert('Đã hủy');
+                    await reservationService.deleteReser(id);
+                    GetRser();
+                }
+            } catch (e) {
+                console.error(e.message);
+            }
+        }
+
         onBeforeMount(() => {
-            if (!authStore.isLogin) {
+            if (localStorage.getItem('userID') == null) {
                 router.push({ name: 'Home' })
             }
             GetRser();
         })
 
         return {
-            logout, document, reservations, handleAccordion, gotoMenu, removeFood
+            logout, document, reservations, handleAccordion, gotoMenu, removeFood, deleteReservation
         }
     }
 }

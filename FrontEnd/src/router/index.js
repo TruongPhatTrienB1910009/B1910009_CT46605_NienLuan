@@ -7,6 +7,7 @@ import Profile from '../views/profile.vue';
 import OverviewTable from '../views/overviewTables.vue';
 import MenuPage from '../views/menu.vue';
 import AdminPage from '../views/adminPage.vue';
+import AdminOverviewFood from '../views/overviewFoods.vue';
 const routes = [
     {
         path: "/",
@@ -44,6 +45,11 @@ const routes = [
         path: "/admin/",
         name: "Admin",
         component: AdminPage
+    },
+    {
+        path: "/admin/overviewfoods",
+        name: "AdminOverviewFood",
+        component: AdminOverviewFood
     }
 ];
 const router = createRouter({

@@ -21,8 +21,16 @@ class reservationService {
         return (await this.api.get(`/${reserID}`)).data;
     }
 
+    async aceptReser(reserID) {
+        return (await this.api.put(`/${reserID}`));
+    }
+
     async addorremoveFood(data) {
         return (await this.api.put("/food/", data)).data;
+    }
+
+    async deleteReser(reserID) {
+        return (await this.api.delete(`/${reserID}`));
     }
 }
 

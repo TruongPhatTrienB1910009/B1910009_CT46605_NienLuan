@@ -14,7 +14,7 @@
                     <h3>CÁC BÀN ĂN CẦN XÁC NHẬN</h3>
                     <n-scrollbar style="max-height: 360px">
                         <div class="cardReser" v-for="(reser, index) in reservations" :key="index">
-                            <div class="title" @click="handleAccordion(index)">
+                            <div v-if="!reser.acepted" class="title" @click="handleAccordion(reser._id)">
                                 <span>Ngày đặt: {{ reser.dateBooking }}</span>
                             </div>
                             <Collapse :when="reser.isExpanded" class="v-collapse">
@@ -46,13 +46,56 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn btn-info ml-3 mb-2">XÁC NHẬN</button>
-                                <button class="btn btn-info ml-3 mb-2">HỦY BỎ</button>
+                                <button v-if="!reser.acepted" @click="accept(reser._id)" class="btn btn-info ml-3 mb-2">XÁC
+                                    NHẬN</button>
+                                <button @click="DeleteReser(reser._id)" class="btn btn-info ml-3 mb-2">HỦY BỎ</button>
                             </Collapse>
                         </div>
                     </n-scrollbar>
                 </div>
-                <div class="listConfirmed"></div>
+                <div class="listConfirmed">
+                    <h3>CÁC BÀN ĂN CẦN ĐÃ XÁC NHẬN</h3>
+                    <n-scrollbar style="max-height: 360px">
+                        <div class="cardReser" v-for="(reser, index) in reservationsAcepted" :key="reser._id">
+                            <div v-if="reser.acepted" class="title" @click="handleAccordion2(reser._id)">
+                                <span>Ngày đặt: {{ reser.dateBooking }}</span>
+                            </div>
+                            <Collapse :when="reser.isExpanded" class="v-collapse">
+                                <div class="cardReser-group row ml-3">
+                                    <div class="col-sm-6">
+                                        <p>Tên người nhận: <span>{{ reser.name }}</span></p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p>Số điện thoại: <span>{{ reser.phone }}</span></p>
+                                    </div>
+                                </div>
+                                <div class="cardReser-group row ml-3">
+                                    <div class="col-sm-6">
+                                        <p>Thời gian: <span>{{ reser.timeBooking }}</span></p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p>Số chỗ ngồi: <span>{{ reser.seat }}</span></p>
+                                    </div>
+                                </div>
+                                <div class="foods">
+                                    <h4 class="m-3">MÓN ĂN</h4>
+                                    <div v-for="food, fIndex in reser.foods" :key="fIndex">
+                                        <div class="row m-3">
+                                            <p class="col-sm-4">{{ food.name }}</p>
+                                            <p class="col-sm-4">{{ food.price }}</p>
+                                            <p class="col-sm-4"><button @click="removeFood({
+                                                reserID: reser._id, foodID: food._id, action: 'remove'
+                                            })" class="btn btn-danger">Xóa</button></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button v-if="!reser.acepted" @click="accept(reser._id)" class="btn btn-info ml-3 mb-2">XÁC
+                                    NHẬN</button>
+                                <button @click="DeleteReser(reser._id)" class="btn btn-info ml-3 mb-2">HỦY BỎ</button>
+                            </Collapse>
+                        </div>
+                    </n-scrollbar>
+                </div>
             </div>
         </div>
     </div>
@@ -146,24 +189,63 @@ const configPie = {
 };
 
 const reservations: any = ref([])
+const reservationsAcepted: any = ref([])
 
 async function getAllResers() {
     reservations.value = await reservationService.getAll();
-    console.log(reservations.value);
     reservations.value.forEach((reser: any, index: number) => {
         reser["isExpanded"] = false;
     })
+    reservationsAcepted.value = reservations.value.filter((reser: any, index: number) => {
+        return reser.acepted == true;
+    })
+
+    reservations.value = reservations.value.filter((reser: any, index: number) => {
+        return reser.acepted == false;
+    })
 }
 
-function handleAccordion(selectedIndex: number) {
-    reservations.value.forEach((_: any, index: number) => {
-        reservations.value[index].isExpanded = index === selectedIndex ? !reservations.value[index].isExpanded : false
+function handleAccordion(selectedIndex: string) {
+    reservations.value.forEach((reser: any, index: number) => {
+        if (reser._id == selectedIndex) {
+            reser.isExpanded = !reser.isExpanded;
+        } else {
+            reser.isExpanded = false;
+        }
+    })
+}
+
+function handleAccordion2(selectedIndex: string) {
+    reservationsAcepted.value.forEach((reser: any, index: number) => {
+        if (reser._id == selectedIndex) {
+            reser.isExpanded = !reser.isExpanded;
+        } else {
+            reser.isExpanded = false;
+        }
     })
 }
 
 async function removeFood(data: any) {
     await reservationService.addorremoveFood(data);
     getAllResers();
+}
+
+async function accept(reserID: string) {
+    try {
+        await reservationService.aceptReser(reserID);
+        getAllResers();
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+async function DeleteReser(reserID: string) {
+    try {
+        await reservationService.deleteReser(reserID);
+        getAllResers();
+    } catch (error) {
+        console.log(error.message);
+    }
 }
 
 onBeforeMount(() => {

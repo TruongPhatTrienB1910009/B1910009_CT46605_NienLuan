@@ -10,7 +10,8 @@ const foodSchema = new Schema({
         type: Number,
     },
     image: {
-        type: String,
+        data: Buffer,
+        contentType: String
     },
     type: String
 });

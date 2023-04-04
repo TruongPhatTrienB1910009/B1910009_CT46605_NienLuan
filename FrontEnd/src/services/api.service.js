@@ -2,8 +2,8 @@ import axios from "axios";
 
 const commonConfig = {
     headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
+        "Content-Type": "application/json; multipart/form-data",
+        Accept: "application/json; multipart/form-data",
     },
 };
 

@@ -19,6 +19,7 @@ const reserSchema = new Schema({
         type: Number
     },
     acepted: {
+        type: Boolean,
         default: false
     },
     user: {
