@@ -65,15 +65,12 @@ export default defineComponent({
         async function uploadNewFood() {
             if (formData.name != '' && formData.price != 0 && formData.type != '') {
                 try {
-                    console.log(formData);
                     let form = new FormData();
                     form.append('name', formData.name);
                     form.append('price', formData.price);
                     form.append('type', formData.type);
                     form.append('image', formData.image);
-                    console.log(form.getAll('image'));
                     const result = await foodService.createFood(form);
-                    console.log(result);
                 } catch (error) {
                     console.log(error.message);
                 }

@@ -14,6 +14,9 @@ onBeforeMount(() => {
     <navBar />
     <router-view />
     <footer-vue />
+    <n-notification-provider>
+        <content />
+    </n-notification-provider>
 </template>
 
 <style scoped></style>

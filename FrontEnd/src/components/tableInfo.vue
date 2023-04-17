@@ -60,12 +60,21 @@
                         <n-collapse>
                             <n-collapse-item :title="table.name" class="cardTableItem">
                                 <div class="cardInfo">
-                                    <div>SỐ CHỖ NGỒI: {{ table.seat }}</div>
-                                    <div v-if="table.place === 'outside'">VỊ TRÍ: OUTSIDE</div>
-                                    <div v-else>VỊ TRÍ: INSIDE</div>
-                                    <button v-if="authStore.isLogin" class="btn btn-info" id="show-modal"
-                                        @click="showModalBooking(index)">ĐẶT
+                                    <div class="row">
+                                        <p class="col-sm-6">Tên bàn: {{ table.name }}</p>
+                                        <p class="col-sm-6">Số chỗ ngồi: {{ table.seat }}</p>
+                                    </div>
+                                    <div class="row">
+                                        <p class="col-sm-6">Vị trí: {{ table.place }}</p>
+                                        <p class="col-sm-6"></p>
+                                    </div>
+                                    <button v-if="authStore.isLogin && authStore.role == 'guest'" class="btn btn-info"
+                                        id="show-modal" @click="showModalBooking(index)">ĐẶT
                                         BÀN</button>
+                                    <div>
+                                        <button class="btn">Xóa</button>
+                                        <button class="btn">Chỉnh sửa</button>
+                                    </div>
                                 </div>
                                 <transition name="modal">
                                     <modal-booking v-if="showModal" @close="closeModal" :temp="temp" />
@@ -231,13 +240,15 @@ export default {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.cardTableItem .cardInfo div {
-    display: inline-block;
-    margin: 15px 15px;
+.cardInfo {
+    padding: 10px;
 }
 
+
 .cardTableItem .cardInfo button {
-    float: right;
-    margin-right: 20px;
+    padding: 10px;
+    background-color: blue;
+    margin: 0 20px 0 0;
+    min-width: 100px;
 }
 </style>

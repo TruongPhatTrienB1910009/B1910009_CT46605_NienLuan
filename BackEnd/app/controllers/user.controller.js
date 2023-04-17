@@ -13,7 +13,7 @@ const encodedToken = (userId) => {
 }
 
 exports.register = async (req, res, next) => {
-
+    console.log(req.body)
     const foundUser = await User.findOne({ email: req.body.email });
 
     if (foundUser) {
@@ -35,6 +35,7 @@ exports.register = async (req, res, next) => {
 exports.signIn = async (req, res, next) => {
     try {
         const foundUser = await User.findOne({ email: req.body.email });
+        console.log(req.body);
         if (!foundUser) {
             return res.status(403).send({ message: 'User not found' });
         } else {

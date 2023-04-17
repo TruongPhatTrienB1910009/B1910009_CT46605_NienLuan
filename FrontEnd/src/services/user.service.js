@@ -6,6 +6,7 @@ class userService {
     }
 
     async signIn(data) {
+        console.log(data);
         return (await this.api.post("/signin", data)).data;
     }
 

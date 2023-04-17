@@ -10,4 +10,6 @@ router.route("/")
 
 router.route("/:id")
     .get(tableController.getTableById)
+    .put(requireAuth, tableController.updateTable)
+    .delete(requireAuth, tableController.deleteTable)
 module.exports = router;

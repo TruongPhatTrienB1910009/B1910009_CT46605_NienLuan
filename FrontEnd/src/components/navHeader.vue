@@ -1,7 +1,8 @@
 <template>
     <header>
-        <div id="logo"><img class="seafood"
-                src="https://www.hoteljob.vn/uploads/images/2021/12/09-10/logoc%C3%A1cbrand_Ussina.png" alt=""></div>
+        <div id="logo">
+            <img src="https://o.remove.bg/downloads/721f5ddf-858a-471a-9cc0-d802db3ae160/logo-removebg-preview.png" alt="">
+        </div>
         <nav id="navBar">
             <div v-if="authStore.isLogin">
                 <div class="navUser" v-if="authStore.role === 'admin'">
@@ -12,7 +13,7 @@
                         <router-link :to='{ name: "AdminOverviewFood" }' class="router-link">MÓN ĂN</router-link>
                     </div>
                     <div v-if="authStore.role === 'admin'" class="navUser__divLink">
-                        <router-link :to='{ name: "Admin" }' class="router-link">BÀN ĂN</router-link>
+                        <router-link :to='{ name: "OverviewTable" }' class="router-link">BÀN ĂN</router-link>
                     </div>
                     <div class="navUser__divLink">
                         <router-link :to='{ name: "Profile" }' class="navUser__divLink--router-link"><i
@@ -73,7 +74,7 @@ header {
 }
 
 #logo img {
-    max-height: 60px;
+    height: 120px;
 }
 
 .navUser {
