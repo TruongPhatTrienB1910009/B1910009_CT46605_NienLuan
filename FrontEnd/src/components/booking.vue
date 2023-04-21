@@ -111,16 +111,20 @@ export default {
 }
 
 .infoBooking input {
-    line-height: 30px;
+    line-height: 40px;
     outline: none;
-}
-
-.infoBooking input:focus {
-    outline: red;
+    border: 1px solid #ccc;
 }
 
 .infoBooking span {
-    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+textarea {
+    border: 1px solid #ccc;
+    outline: none;
 }
 
 .modal-mask {

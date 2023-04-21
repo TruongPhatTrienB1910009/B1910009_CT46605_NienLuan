@@ -36,22 +36,26 @@ exports.getAllReservationsByUserID = async (req, res, next) => {
 }
 
 exports.addFood = async (req, res, next) => {
-    const foodID = req.body.foodID;
-    const reser = await Reservation.findById(req.body.reserID);
-    const action = req.body.action;
-    let newfoods = [];
+    try {
+        const foodID = req.body.foodID;
+        const reser = await Reservation.findById(req.params.reserID);
+        const action = req.body.action;
+        let newfoods = [];
 
-    if (action === 'add') {
-        reser.foods.push(foodID);
-        reser.save();
-    } else {
-        newfoods = reser.foods.filter((food) => {
-            return food != foodID;
-        })
-        reser.foods = newfoods;
-        reser.save();
+        if (action === 'add') {
+            reser.foods.push(foodID);
+            reser.save();
+        } else {
+            newfoods = reser.foods.filter((food) => {
+                return food != foodID;
+            })
+            reser.foods = newfoods;
+            reser.save();
+        }
+        return res.send(reser);
+    } catch (error) {
+        console.log(error)
     }
-    return res.send(reser);
 }
 
 exports.getByID = async (req, res, next) => {

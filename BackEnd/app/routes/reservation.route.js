@@ -11,7 +11,7 @@ router.route('/:reserID')
     .put(reservationController.aceptReser)
     .delete(reservationController.deleteReser)
 
-router.route('/food/')
+router.route('/food/:reserID')
     .put(reservationController.addFood)
 
 router.route('/user/:userID')

@@ -32,10 +32,12 @@ const reserSchema = new Schema({
             ref: 'Table'
         }
     ],
-    foods: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Food'
-    }]
+    foods: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Food'
+        }
+    ]
 })
 
 const Reservation = mongoose.model('Reservation', reserSchema);
