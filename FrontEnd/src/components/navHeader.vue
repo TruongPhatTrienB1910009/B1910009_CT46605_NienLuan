@@ -1,7 +1,7 @@
 <template>
     <header>
         <div id="logo">
-            <img src="https://o.remove.bg/downloads/721f5ddf-858a-471a-9cc0-d802db3ae160/logo-removebg-preview.png" alt="">
+            <img src="../assets/images/logo.png" alt="">
         </div>
         <nav id="navBar">
             <div v-if="authStore.isLogin">
@@ -21,6 +21,12 @@
                     </div>
                 </div>
                 <div class="navUser" v-else>
+                    <div class="navUser__divLink">
+                        <router-link :to='{ name: "MenuPage" }' class="router-link">Thực đơn</router-link>
+                    </div>
+                    <div class="navUser__divLink">
+                        <router-link :to='{ name: "OverviewTable" }' class="router-link">Đặt bàn</router-link>
+                    </div>
                     <div class="navUser__divLink">
                         <router-link :to='{ name: "Home" }' class="router-link">Trang Chủ</router-link>
                     </div>
@@ -74,7 +80,7 @@ header {
 }
 
 #logo img {
-    height: 120px;
+    height: 60px;
 }
 
 .navUser {

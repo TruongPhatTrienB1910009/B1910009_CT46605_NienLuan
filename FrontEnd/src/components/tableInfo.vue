@@ -95,7 +95,6 @@
             <div class="modal-container">
                 <div class="modal-header">
                     <h3>ĐIỀN THÔNG TIN</h3>
-                    {{ show }}
                 </div>
 
                 <div class="modal-body">

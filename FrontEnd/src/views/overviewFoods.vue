@@ -16,8 +16,9 @@
                 </div>
             </div>
             <div class="addItemFood">
-                <button class="btn btn-info">Thêm mới</button>
-                <div>
+                <button v-if="!showForm" @click="show" class="btn btn-info">Thêm mới</button>
+                <button v-else @click="show" class="btn btn-info">Đóng</button>
+                <div v-if="showForm">
                     <addFoodForm />
                 </div>
             </div>
@@ -69,6 +70,8 @@ export default defineComponent({
             image: '',
             id: '',
         })
+
+        const showForm = ref(false);
 
         async function getAllFoods() {
             try {
@@ -143,12 +146,16 @@ export default defineComponent({
             return new URL(`../assets/images/foods/${img}`, import.meta.url).href
         }
 
+        function show() {
+            showForm.value = !showForm.value;
+        }
+
         onBeforeMount(() => {
             getAllFoods();
         })
 
         return {
-            foods, VND, getImageUrl, editFood, closeModal, beforeUpload, onChangeUpload, formData, updateFood, removeFood
+            foods, VND, getImageUrl, editFood, closeModal, beforeUpload, onChangeUpload, formData, updateFood, removeFood, showForm, show
         }
     }
 })
@@ -262,5 +269,9 @@ export default defineComponent({
 .formUpdate-action button:first-child:hover {
     background-color: red;
     color: white;
+}
+
+.addItemFood {
+    margin-bottom: 20px;
 }
 </style>

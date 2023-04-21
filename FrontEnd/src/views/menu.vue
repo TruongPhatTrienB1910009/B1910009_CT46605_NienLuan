@@ -9,10 +9,12 @@
 
             <h3>THỰC ĐƠN CÁC MÓN AGING BEEF</h3>
             <foodContain :type="'aging'" />
-            <h3>THỰC ĐƠN CÁC MÓN SALAD</h3>
 
+            <h3>THỰC ĐƠN CÁC MÓN SALAD</h3>
+            <foodContain :type="'salad'" />
 
             <h3>THỰC ĐƠN CÁC MÓN CHEF'S SPECIAL</h3>
+            <foodContain :type="'special'" />
 
         </div>
     </div>
